@@ -396,6 +396,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+fsclientui/node_modules/
+fsclientui/jspm_packages/
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
