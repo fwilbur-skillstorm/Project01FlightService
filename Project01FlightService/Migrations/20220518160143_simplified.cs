@@ -4,23 +4,23 @@
 
 namespace Project01FlightServiceFAW.Migrations
 {
-    public partial class addedcapacity : Migration
+    public partial class simplified : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "Capacity",
-                table: "Flights",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.DropColumn(
+                name: "FlightNumber",
+                table: "Flights");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Capacity",
-                table: "Flights");
+            migrationBuilder.AddColumn<int>(
+                name: "FlightNumber",
+                table: "Flights",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }

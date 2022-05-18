@@ -71,8 +71,9 @@ namespace Project01FlightServiceFAW.Controllers
         // POST: api/Locations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation(Location location)
+        public async Task<ActionResult<Location>> PostLocation(string name, string code)
         {
+            Location location = new Location { AirportName = name, AirportCode = code };
             _context.Locations.Add(location);
             await _context.SaveChangesAsync(CancellationToken.None);
 

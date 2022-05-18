@@ -12,8 +12,8 @@ using Project01FlightServiceFAW.Data;
 namespace Project01FlightServiceFAW.Migrations
 {
     [DbContext(typeof(FSContext))]
-    [Migration("20220512212044_basicsetupasofmuchconsideration")]
-    partial class basicsetupasofmuchconsideration
+    [Migration("20220518150158_newtry")]
+    partial class newtry
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace Project01FlightServiceFAW.Migrations
 
                     b.Property<DateTime?>("Arrival")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");

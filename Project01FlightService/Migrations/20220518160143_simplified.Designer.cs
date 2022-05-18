@@ -12,8 +12,8 @@ using Project01FlightServiceFAW.Data;
 namespace Project01FlightServiceFAW.Migrations
 {
     [DbContext(typeof(FSContext))]
-    [Migration("20220513173635_addedcapacity")]
-    partial class addedcapacity
+    [Migration("20220518160143_simplified")]
+    partial class simplified
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,9 +48,6 @@ namespace Project01FlightServiceFAW.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("DestinationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FlightNumber")
                         .HasColumnType("int");
 
                     b.Property<int?>("OriginId")

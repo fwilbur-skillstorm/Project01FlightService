@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project01FlightServiceFAW.Migrations
 {
-    public partial class basicsetupasofmuchconsideration : Migration
+    public partial class newtry : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,6 +55,7 @@ namespace Project01FlightServiceFAW.Migrations
                     Arrival = table.Column<DateTime>(type: "datetime2", nullable: true),
                     OriginId = table.Column<int>(type: "int", nullable: true),
                     DestinationId = table.Column<int>(type: "int", nullable: true),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

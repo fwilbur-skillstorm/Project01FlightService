@@ -20,13 +20,6 @@ namespace Project01FlightServiceFAW.Data
 
 		}
 
-		// shamelessly lifted from here: https://www.johnaclee.com/blog/automatic-created-and-updated-dates-with-entity-framework
-		public override int SaveChanges()
-		{
-			SetProperties();
-			return base.SaveChanges();
-		}
-
 		//would override, but runs into errors; method that follows this one is necessary
         //public override Task<int> SaveChangesAsync()
         //{

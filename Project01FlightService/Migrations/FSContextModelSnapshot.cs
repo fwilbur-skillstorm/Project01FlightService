@@ -48,9 +48,6 @@ namespace Project01FlightServiceFAW.Migrations
                     b.Property<int?>("DestinationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FlightNumber")
-                        .HasColumnType("int");
-
                     b.Property<int?>("OriginId")
                         .HasColumnType("int");
 

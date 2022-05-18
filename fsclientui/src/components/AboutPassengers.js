@@ -9,7 +9,7 @@ const AboutPassengers = (props) => {
             option2Url='/passengers/create'
             option3Url='/passengers/delete'
             option4Url='/passengers'
-            option1Text='View Passengers'
+            option1Text='View and Edit Passengers'
             option2Text='Create a Passenger'
             option3Text='Delete a Passenger'
             option4Text='How to Use'

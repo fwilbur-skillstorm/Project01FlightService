@@ -9,7 +9,7 @@ const DeleteFlight = (props) => {
             option2Url='/flights/create'
             option3Url='/flights/delete'
             option4Url='/flights'
-            option1Text='View Flights'
+            option1Text='View and Edit Flights'
             option2Text='Create a Flight'
             option3Text='Delete a Flight'
             option4Text='How to Use'

@@ -781,83 +781,103 @@ namespace Project01FlightServiceFAW.Data
                 {
 					new Flight
                     {
-						FlightNumber=rand.Next(1,3000)
+                        Origin=locations[0],
+                        Destination=locations[1],
                     },
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[6],
+						Destination=locations[1],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[3],
+						Destination=locations[4],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[9],
+						Destination=locations[3],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[4],
+						Destination=locations[8],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[3],
+						Destination=locations[6],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[2],
+						Destination=locations[7],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[7],
+						Destination=locations[0],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[5],
+						Destination=locations[0],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[9],
+						Destination=locations[7],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[1],
+						Destination=locations[8],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[7],
+						Destination=locations[6],
+					},
+					new Flight
+					{						
+						Origin=locations[6],
+						Destination=locations[3],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[0],
+						Destination=locations[2],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[9],
+						Destination=locations[4],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[7],
+						Destination=locations[1],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[6],
+						Destination=locations[7],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[8],
+						Destination=locations[3],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[2],
+						Destination=locations[8],
 					},
 					new Flight
 					{
-						FlightNumber=rand.Next(1,3000)
-					},
-					new Flight
-					{
-						FlightNumber=rand.Next(1,3000)
+						Origin=locations[0],
+						Destination=locations[9],
 					}
 				};
 
@@ -871,71 +891,105 @@ namespace Project01FlightServiceFAW.Data
 				{
 					new Itinerary
 					{
-						Confirmation="3f902bhng923bh4tg".ToUpper()
+						Confirmation="3f902bhng923bh4tg".ToUpper(),
+                        Passenger=passengers[3],
+                        Flight=flights[0]
 					},
 					new Itinerary
 					{
-						Confirmation="239478fh2349t8h2394th".ToUpper()
+						Confirmation="239478fh2349t8h2394th".ToUpper(),
+						Passenger=passengers[0],
+						Flight=flights[2]
 					},
 					new Itinerary
 					{
-						Confirmation="123op94rt78h213op4th".ToUpper()
+						Confirmation="123op94rt78h213op4th".ToUpper(),
+						Passenger=passengers[8],
+						Flight=flights[1]
 					},
 					new Itinerary
 					{
-						Confirmation="34tb34tbynu89".ToUpper()
+						Confirmation="34tb34tbynu89".ToUpper(),
+						Passenger=passengers[5],
+						Flight=flights[3]
 					},
 					new Itinerary
 					{
-						Confirmation="34vtyn89qw34vtbynu890".ToUpper()
+						Confirmation="34vtyn89qw34vtbynu890".ToUpper(),
+						Passenger=passengers[12],
+						Flight=flights[4]
 					},
 					new Itinerary
 					{
-						Confirmation="234v5gbny7891234vt".ToUpper()
+						Confirmation="234v5gbny7891234vt".ToUpper(),
+						Passenger=passengers[0],
+						Flight=flights[6]
 					},
 					new Itinerary
 					{
-						Confirmation="2345tgynu89234r5tbgnu89".ToUpper()
+						Confirmation="2345tgynu89234r5tbgnu89".ToUpper(),
+						Passenger=passengers[15],
+						Flight=flights[5]
 					},
 					new Itinerary
 					{
-						Confirmation="2345gbyn7u892345gbyhnu89".ToUpper()
+						Confirmation="2345gbyn7u892345gbyhnu89".ToUpper(),
+						Passenger=passengers[14],
+						Flight=flights[8]
 					},
 					new Itinerary
 					{
-						Confirmation="hnu892345tgbhnu89".ToUpper()
+						Confirmation="hnu892345tgbhnu89".ToUpper(),
+						Passenger=passengers[14],
+						Flight=flights[7]
 					},
 					new Itinerary
 					{
-						Confirmation="2345tb89hnum12345tbu89".ToUpper()
+						Confirmation="2345tb89hnum12345tbu89".ToUpper(),
+						Passenger=passengers[6],
+						Flight=flights[6]
 					},
 					new Itinerary
 					{
-						Confirmation="aw3l4bkno89q34gb6lno789".ToUpper()
+						Confirmation="aw3l4bkno89q34gb6lno789".ToUpper(),
+						Passenger=passengers[2],
+						Flight=flights[5]
 					},
 					new Itinerary
 					{
-						Confirmation="q34gvbyn789loq34vyhn789o".ToUpper()
+						Confirmation="q34gvbyn789loq34vyhn789o".ToUpper(),
+						Passenger=passengers[10],
+						Flight=flights[9]
 					},
 					new Itinerary
 					{
-						Confirmation="byn89lpq34tbyn89p".ToUpper()
+						Confirmation="byn89lpq34tbyn89p".ToUpper(),
+						Passenger=passengers[9],
+						Flight=flights[4]
 					},
 					new Itinerary
 					{
-						Confirmation="2345tgbybyn89op34v5tgbyn89op".ToUpper()
+						Confirmation="2345tgbybyn89op34v5tgbyn89op".ToUpper(),
+						Passenger=passengers[1],
+						Flight=flights[3]
 					},
 					new Itinerary
 					{
-						Confirmation="aw35l4ity78qw34ot9gb89".ToUpper()
+						Confirmation="aw35l4ity78qw34ot9gb89".ToUpper(),
+						Passenger=passengers[3],
+						Flight=flights[2]
 					},
 					new Itinerary
 					{
-						Confirmation="q34tlyn78i94vtg".ToUpper()
+						Confirmation="q34tlyn78i94vtg".ToUpper(),
+						Passenger=passengers[6],
+						Flight=flights[0]
 					},
 					new Itinerary
 					{
-						Confirmation="v4fn3h17v4tb312gy78o".ToUpper()
+						Confirmation="v4fn3h17v4tb312gy78o".ToUpper(),
+						Passenger=passengers[8],
+						Flight=flights[1]
 					}
 				};
 
