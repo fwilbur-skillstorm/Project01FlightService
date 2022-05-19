@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {
+    Box,
     Button,
     Table,
     Thead,
@@ -38,8 +39,9 @@ const ViewPassengers = (props) => {
         <>
             {navigation()}
             <div>
+                <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                 <TableContainer>
-                    <Table variant='striped' colorScheme=''>
+                    <Table variant='striped' colorScheme='blue'>
                         <TableCaption>
                             Passenger entries can be edited by clicking the "Edit" button next to one of the entries.
                         </TableCaption>
@@ -59,6 +61,9 @@ const ViewPassengers = (props) => {
                                 </Th>
                                 <Th>
                                     Date of Birth
+                                </Th>
+                                <Th>
+                                    Age
                                 </Th>
                                 <Th>
                                     Career
@@ -87,6 +92,7 @@ const ViewPassengers = (props) => {
                                             </a>
                                         </Td>
                                         <Td>{IsoConverter.toDateOnly(person.dob)}</Td>
+                                        <Td>{person.age}</Td>
                                         <Td>{person.job == null ? '(not provided)' : person.job}</Td>
                                         <Td>{IsoConverter.toDateOnly(person.dateCreated)}</Td>
                                         <Td>{person.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(person.dateUpdated)}</Td>
@@ -134,6 +140,7 @@ const ViewPassengers = (props) => {
                         </Tfoot>
                     </Table>
                 </TableContainer>
+                </Box>
             </div>
         </>
     )

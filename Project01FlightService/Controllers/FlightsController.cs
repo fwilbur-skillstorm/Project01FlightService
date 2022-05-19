@@ -20,7 +20,10 @@ namespace Project01FlightServiceFAW.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Flight>>> GetFlights()
         {
-            return await _context.Flights.ToListAsync();
+            return await _context.Flights
+                                 .Include(f => f.Origin)
+                                 .Include(f => f.Destination)
+                                 .ToListAsync();
         }
 
         // GET: api/Flights/5

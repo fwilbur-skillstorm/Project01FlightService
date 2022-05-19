@@ -777,12 +777,14 @@ namespace Project01FlightServiceFAW.Data
 
 				Random rand = new Random();
 
+				List<Location> locationsFromDb = context.Locations.ToList();
+
                 Flight[] flights = new Flight[]
                 {
 					new Flight
                     {
-                        Origin=locations[0],
-                        Destination=locations[1],
+                        Origin=locationsFromDb.First(),
+                        Destination=locationsFromDb.Find(location => location.Id == 2),
                     },
 					new Flight
 					{

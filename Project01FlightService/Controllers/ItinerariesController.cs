@@ -20,7 +20,13 @@ namespace Project01FlightServiceFAW.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Itinerary>>> GetItineraries()
         {
-            return await _context.Itineraries.ToListAsync();
+            return await _context.Itineraries
+                                 .Include(i => i.Flight)
+                                     .ThenInclude(f => f.Origin)
+                                 .Include(i => i.Flight)
+                                    .ThenInclude(f => f.Destination)
+                                 .Include(i => i.Passenger)
+                                 .ToListAsync();
         }
 
         // GET: api/Itineraries/5

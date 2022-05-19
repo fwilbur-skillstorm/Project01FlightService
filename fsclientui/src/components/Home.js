@@ -4,6 +4,16 @@ import MainNavBar from "./MainNavBar"
 const Home = (props) => {
     return (
         <>
+        {navigation()}
+        <p>
+            This is the home page.
+        </p>
+        </>
+    )
+}
+
+function navigation() {
+    return (
         <MainNavBar
             homeText='Home'
             option1Url='/flights'
@@ -15,10 +25,6 @@ const Home = (props) => {
             option3Text='Passengers'
             option4Text='Itineraries'
         />
-        <p>
-            This is the home page.
-        </p>
-        </>
     )
 }
 

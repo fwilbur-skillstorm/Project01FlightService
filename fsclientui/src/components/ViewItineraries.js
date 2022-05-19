@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {
+    Box,
     Button,
     Table,
     Thead,
@@ -36,13 +37,14 @@ const ViewItineraries = (props) => {
     if (!itins) return (
         navigation()
     )
-    
+
     return (
         <>
             {navigation()}
             <div>
+                <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                 <TableContainer>
-                    <Table variant='striped' colorScheme=''>
+                    <Table variant='striped' colorScheme='blue'>
                         <TableCaption>
                             Passenger itineraries can be edited by clicking the "Edit" button next to one of the entries.
                         </TableCaption>
@@ -53,6 +55,12 @@ const ViewItineraries = (props) => {
                                 </Th>
                                 <Th>
                                     Passenger
+                                </Th>
+                                <Th>
+                                    Origin
+                                </Th>
+                                <Th>
+                                    Destination
                                 </Th>
                                 <Th>
                                     Confirmation Code
@@ -69,9 +77,11 @@ const ViewItineraries = (props) => {
                             {itins.map((itin) => (
                                 <React.Fragment key={itin.id}>
                                     <Tr>
-                                        <Td>{IsoConverter.toDateOnly(itin.departure) + ': ' + itin.flightNumber}</Td>
-                                        <Td>{itin.passengerFirstName + ' ' + itin.passengerLastName}</Td>
+                                        <Td>{itin.flight.id}</Td>
+                                        <Td>{itin.passenger.firstName + ' ' + itin.passenger.lastName}</Td>
                                         <Td>{itin.confirmation}</Td>
+                                        <Td>{itin.flight.origin.airportCode}</Td>
+                                        <Td>{itin.flight.destination.airportCode}</Td>
                                         <Td>{IsoConverter.toDateOnly(itin.dateCreated)}</Td>
                                         <Td>{itin.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(itin.dateUpdated)}</Td>
                                         <Td>
@@ -87,11 +97,17 @@ const ViewItineraries = (props) => {
                         </Tbody>
                         <Tfoot>
                             <Tr>
-                                <Th>
+                            <Th>
                                     Flight
                                 </Th>
                                 <Th>
                                     Passenger
+                                </Th>
+                                <Th>
+                                    Origin
+                                </Th>
+                                <Th>
+                                    Destination
                                 </Th>
                                 <Th>
                                     Confirmation Code
@@ -106,6 +122,7 @@ const ViewItineraries = (props) => {
                         </Tfoot>
                     </Table>
                 </TableContainer>
+                </Box>
             </div>
         </>
     )

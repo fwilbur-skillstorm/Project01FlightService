@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {
+    Box,
     Button,
     Table,
     Thead,
@@ -40,8 +41,9 @@ const ViewAirports = (props) => {
         <>
             {navigation()}
             <div>
+                <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                 <TableContainer>
-                    <Table variant='striped' colorScheme=''>
+                    <Table variant='striped' colorScheme='blue'>
                         <TableCaption>
                             Airports can be edited by clicking the "Edit" button next to one of the entries.
                         </TableCaption>
@@ -66,8 +68,8 @@ const ViewAirports = (props) => {
                                         <Td>{airport.airportCode}</Td>
                                         <Td>
                                             <Link to='/'>
-                                                <Button colorScheme='yellow' variant='solid'>
-                                                    Edit
+                                                <Button colorScheme='red' variant='solid'>
+                                                    Delete
                                                 </Button>
                                             </Link>
                                         </Td>
@@ -90,6 +92,7 @@ const ViewAirports = (props) => {
                         </Tfoot>
                     </Table>
                 </TableContainer>
+                </Box>
             </div>
         </>
     )

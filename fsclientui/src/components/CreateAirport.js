@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
     Button,
@@ -8,17 +7,18 @@ import {
     FormHelperText,
     Input
 } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 
+
 const CreateAirport = (props) => {
-    const [airportLocation, setAirportLocation] = useState('')
-    const [airportCode, setAirportCode] = useState('')
+    const navigate = useNavigate()
 
-    const { handleSubmit, register, formState: { errors, isSubmitting }, } = useForm()
+    const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
-    const onSubmit = event => {
-        event.preventDefault()
-        alert(`Airport Location: ${airportLocation}, Airport Code: ${airportCode}.`)
+    const onSubmit = data => {
+        console.log(data.toString())
+        navigate('/airports/view')
     }
 
     return (
@@ -28,13 +28,17 @@ const CreateAirport = (props) => {
                 <FormControl isRequired>
                     <FormLabel htmlFor='airportlocation'>Airport Location</FormLabel>
                     <Input 
-                        type='text' 
-                        id='airportlocation'
-                        onChange={event => setAirportLocation(event.target.value)}
-                        {...register('airportlocation', {
+                        // type='text' 
+                        // id='airportlocation'
+                        // name='airportlocation'
+                        // value={apLocation}
+                        // onChange={event => setApLocation(event.target.value)}
+                        {...register('airportlocation', 
+                        {
                             required: true,
                             minLength: { value: 3, message: 'Minimum length should be 3.'}
-                        })}
+                        }
+                        )}
                     />
                     <FormHelperText>
                         The airport location can and should include country.
@@ -43,15 +47,19 @@ const CreateAirport = (props) => {
                 <FormControl isRequired>
                 <FormLabel htmlFor='airportcode'>Airport Code</FormLabel>
                     <Input 
-                        type='text' 
-                        id='airportcode'
-                        onChange={event => setAirportCode(event.target.value)}
-                        {...register('airportcode', {
-                            required: true,
-                            pattern: /a-zA-Z/,
-                            minLength: { value: 3, message: 'Minimum length should be 3.'},
-                            maxLength: { value: 3, message: 'Maximum length should be 3.'}
-                        })}
+                        // type='text' 
+                        // id='airportcode'
+                        // name='airportcode'
+                        // value={apCode}
+                        // onChange={event => setApCode(event.target.value)}
+                        {...register('airportcode', 
+                        // {
+                        //     required: true,
+                        //     pattern: /a-zA-Z/,
+                        //     minLength: { value: 3, message: 'Minimum length should be 3.'},
+                        //     maxLength: { value: 3, message: 'Maximum length should be 3.'}
+                        // }
+                        )}
                     />
                     <FormHelperText>
                         The airport code should be exactly three capital letters.
@@ -61,9 +69,10 @@ const CreateAirport = (props) => {
                     </FormErrorMessage>
                 </FormControl>
                 <Button
-                    variantColor='teal'
+                    colorScheme='teal'
                     variant='outline'
                     type='submit'
+                    isLoading={isSubmitting}
                     width='full'
                     mt={4}
                 >

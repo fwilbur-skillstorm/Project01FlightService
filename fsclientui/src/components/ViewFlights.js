@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {
+    Box,
     Button,
     Table,
     Thead,
@@ -38,10 +39,11 @@ const ViewFlights = (props) => {
         <>
             {navigation()}
             <div>
+                <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                 <TableContainer>
-                    <Table variant='striped' colorScheme=''>
+                    <Table variant='striped' colorScheme='blue'>
                         <TableCaption>
-                            Airports can be edited by clicking the "Edit" button next to one of the entries.
+                            Flights can be edited by clicking the "Edit" button next to one of the entries.
                         </TableCaption>
                         <Thead>
                             <Tr>
@@ -81,13 +83,13 @@ const ViewFlights = (props) => {
                             {flights.map((item) => (
                                 <React.Fragment key={item.id}>
                                     <Tr>
-                                        <Td>{item.flightNumber}</Td>
-                                        <Td>{item.origin}</Td>
+                                        <Td>{item.id}</Td>
+                                        <Td>{item.origin.airportCode}</Td>
                                         <Td>{item.departure}</Td>
-                                        <Td>{item.destination}</Td>
+                                        <Td>{item.destination.airportCode}</Td>
                                         <Td>{item.arrival}</Td>
                                         <Td>0</Td>
-                                        <Td></Td>
+                                        <Td>{item.capacity}</Td>
                                         <Td>{IsoConverter.toDateOnly(item.dateCreated)}</Td>
                                         <Td>{item.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(item.dateUpdated)}</Td>
                                         <Td>
@@ -103,7 +105,7 @@ const ViewFlights = (props) => {
                         </Tbody>
                         <Tfoot>
                             <Tr>
-                            <Th>
+                                <Th>
                                     Flight Number
                                 </Th>
                                 <Th>
@@ -137,6 +139,7 @@ const ViewFlights = (props) => {
                         </Tfoot>
                     </Table>
                 </TableContainer>
+                </Box>
             </div>
         </>
     )

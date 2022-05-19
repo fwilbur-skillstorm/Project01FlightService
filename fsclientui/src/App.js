@@ -38,7 +38,7 @@ function App() {
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
             <header>
-              Header stuff will go here.
+              <h1>Not-Actually-Deathtraps Helicopter Service</h1>
             </header>
             <Routes>
               <Route path='/' element={<Outlet />}>
