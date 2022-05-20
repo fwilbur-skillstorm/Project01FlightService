@@ -14,6 +14,9 @@ const AboutItineraries = (props) => {
                 option3Text='Delete an Itinerary'
                 option4Text='How to Use'
             />
+
+            <hr />
+
             <p>
                 This is the about itineraries page.
             </p>

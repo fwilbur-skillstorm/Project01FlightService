@@ -14,6 +14,9 @@ const AboutAirports = (props) => {
                 option3Text='Delete an Airport'
                 option4Text='How to Use'
             />
+
+            <hr />
+
             <p>
                 This is the about airport page.
             </p>

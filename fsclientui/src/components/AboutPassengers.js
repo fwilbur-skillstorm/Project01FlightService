@@ -14,6 +14,9 @@ const AboutPassengers = (props) => {
                 option3Text='Delete a Passenger'
                 option4Text='How to Use'
             />
+
+            <hr />
+
             <p>
                 This is the about passengers page.
             </p>

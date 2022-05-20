@@ -25,6 +25,9 @@ const CreateAirport = (props) => {
     return (
         <>
             {navigation()}
+
+            <hr />
+
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>

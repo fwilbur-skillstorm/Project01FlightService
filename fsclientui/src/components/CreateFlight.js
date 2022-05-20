@@ -31,10 +31,8 @@ const CreateFlight = (props) => {
             .then((response) => {
                 setAirports(response.data)
             }).catch((e) => {
-                let x = {}
-                x.blah = 'hello'
-                x.bleh = 'world'
-                setAirports(x)
+                setAirports(null)
+                console.log('Could not set airports: ' + e.toString())
             })
     }, [])
 
@@ -50,7 +48,10 @@ const CreateFlight = (props) => {
     return (
         <>
             {navigation()}
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
+
+            <hr />
+
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' maxWidth={500}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='origin'>Airport Location</FormLabel>
@@ -68,6 +69,7 @@ const CreateFlight = (props) => {
                     <FormControl isRequired>
                         <FormLabel htmlFor='departure'>Departure Time</FormLabel>
                         <DatePicker className='border' showTimeSelect timeIntervals={5} selected={departure} onChange={date => setDeparture(date)} />
+                        <span>Chosen time: {arrival.toLocaleTimeString()}</span>
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel htmlFor='destination'>Destination</FormLabel>
@@ -92,6 +94,7 @@ const CreateFlight = (props) => {
                     <FormControl isrequired>
                         <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>
                         <DatePicker className='border' showTimeSelect timeIntervals={5} selected={arrival} onChange={date => setArrival(date)} />
+                        <span>Chosen time: {arrival.toLocaleTimeString()}</span>
                     </FormControl>
                     <Button
                         colorScheme='teal'

@@ -28,6 +28,7 @@ const DeletePassenger = (props) => {
                 setPassengers(response.data)
             }).catch((e) => {
                 setPassengers(null)
+                console.log('Could not set passengers because: ' + e.toString())
             })
     }, [])
 
@@ -38,6 +39,9 @@ const DeletePassenger = (props) => {
     return (
         <>
             {navigation()}
+
+            <hr />
+
             <div>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>

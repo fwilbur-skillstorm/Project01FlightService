@@ -7,6 +7,7 @@ import {
 import {
   ChakraProvider,
   Box,
+  Image,
   VStack,
   Grid,
   theme,
@@ -29,17 +30,17 @@ import ViewAirports from './components/ViewAirports'
 import ViewFlights from './components/ViewFlights'
 import ViewPassengers from './components/ViewPassengers'
 import ViewItineraries from './components/ViewItineraries'
+import './App.css'
 
 function App() {
   return (
+    <div className='maincontainer'>
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
+      
           <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
             <header>
-              <script src='https://cdn.jsdelivr.net/npm/@revolist/revo-dropdown@latest/dist/revo-dropdown/revo-dropdown.js' />
-              <h1>Not-Actually-Deathtraps Helicopter Service</h1>
+              <Image alt='a helicopter' src='helicopter.png' className='helicopterimg' />
+              <h1 className='brandingheader'>Not-Actually-Deathtraps Helicopter Service</h1>
             </header>
             <Routes>
               <Route path='/' element={<Outlet />}>
@@ -62,11 +63,9 @@ function App() {
                 <Route path='/itineraries/delete' element={<DeleteItinerary />} />
               </Route>
             </Routes>
-            <hr />
-          </VStack>
-        </Grid>
-      </Box>
+
     </ChakraProvider>
+    </div>
   );
 }
 

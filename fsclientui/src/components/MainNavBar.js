@@ -15,7 +15,7 @@ const MainNavBar = (props) => {
     const opt4Regex = new RegExp(props.option4Url, 'gi')
 
     return (
-        <Breadcrumb separator='|'>
+        <Breadcrumb fontSize='xl' separator='|'>
             <BreadcrumbItem>
                 <BreadcrumbLink as={Link} to='/'>
                     {props.homeText}

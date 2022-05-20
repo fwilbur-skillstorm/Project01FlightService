@@ -16,7 +16,7 @@ import MainNavBar from "./MainNavBar"
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const baseURL = 'https://localhost:7156/api/Flights'
+const baseURL = 'https://localhost:7156/api/Passengers'
 
 
 const CreatePassenger = (props) => {
@@ -25,17 +25,17 @@ const CreatePassenger = (props) => {
 
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
-    React.useEffect(() => {
-        axios.get(baseURL)
-            .then((response) => {
-                // setAirports(response.data)
-            }).catch((e) => {
-                let x = {}
-                x.blah = 'hello'
-                x.bleh = 'world'
-                // setAirports(x)
-            })
-    }, [])
+    // React.useEffect(() => {
+    //     axios.get(baseURL)
+    //         .then((response) => {
+    //             // setAirports(response.data)
+    //         }).catch((e) => {
+    //             let x = {}
+    //             x.blah = 'hello'
+    //             x.bleh = 'world'
+    //             // setAirports(x)
+    //         })
+    // }, [])
 
     const onSubmit = data => {
         console.log(data.toString())
@@ -46,6 +46,9 @@ const CreatePassenger = (props) => {
     return (
         <>
             {navigation()}
+
+            <hr />
+
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>

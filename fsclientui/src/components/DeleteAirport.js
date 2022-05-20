@@ -40,6 +40,9 @@ const DeleteAirport = (props) => {
     return (
         <>
             {navigation()}
+
+            <hr />
+
             <div>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>

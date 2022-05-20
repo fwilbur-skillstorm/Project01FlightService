@@ -28,6 +28,7 @@ const DeleteFlight = (props) => {
                 setFlights(response.data)
             }).catch((e) => {
                 setFlights(null)
+                console.log('Could not set flights because: ' + e.toString())
             })
     }, [])
 
@@ -38,6 +39,9 @@ const DeleteFlight = (props) => {
     return (
         <>
             {navigation()}
+
+            <hr />
+
             <div>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>

@@ -34,6 +34,7 @@ const CreateItinerary = (props) => {
             .then((response) => {
                 setPassengers(response.data)
             }).catch((e) => {
+                setPassengers(null)
                 console.log('Could not set passengers: ' + e.toString())
             })
     }, [])
@@ -44,11 +45,8 @@ const CreateItinerary = (props) => {
                 setFlights(response.data)
             })
             .catch((e) => {
-                let x = {}
-                x.blah = 'hello'
-                x.bleh = 'world'
-                setFlights(x)
-                console.log("couldn't get flights: " + e.toString())
+                setFlights(null)
+                console.log('Could not set flights because: ' + e.toString())
             })
     }, [])
 
@@ -56,8 +54,8 @@ const CreateItinerary = (props) => {
         flights.forEach(flight => {
             if (data.id === flight.id) {
                 setSelectedFlight(data)
-                setOrigin(data.origin.airportCode ? data.origin.airportCode : '')
-                setDestination(data.destination.airportCode ? data.destination.airportCode : '')
+                setOrigin(data.origin.airportName ? data.origin.airportName : '')
+                setDestination(data.destination.airportName ? data.destination.airportName : '')
                 setDeparture(data.departure ? data.departure : '')
                 setArrival(data.arrival ? data.arrival : '')
             }
@@ -85,7 +83,10 @@ const CreateItinerary = (props) => {
     return (
         <>
             {navigation()}
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
+
+            <hr />
+
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' maxWidth={650} m='auto' p={4}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='passenger'>Passenger</FormLabel>

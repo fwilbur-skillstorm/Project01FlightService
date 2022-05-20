@@ -27,10 +27,8 @@ const DeleteItinerary = (props) => {
             .then((response) => {
                 setItineraries(response.data)
             }).catch((e) => {
-                let x = {}
-                x.blah = 'hello'
-                x.bleh = 'world'
-                setItineraries(x)
+                setItineraries(null)
+                console.log('Could not set itineraries because: ' + e.toString())
             })
     }, [])
 
@@ -41,6 +39,9 @@ const DeleteItinerary = (props) => {
     return (
         <>
             {navigation()}
+
+            <hr />
+
             <div>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>
