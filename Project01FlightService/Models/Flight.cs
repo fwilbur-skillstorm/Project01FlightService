@@ -4,7 +4,6 @@ namespace Project01FlightServiceFAW.Models
 {
     public class Flight : IDateCreatedAndUpdated
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string? Departure { get; set; } = new DateTime().ToString();
         public string? Arrival { get; set; } = new DateTime().ToString();

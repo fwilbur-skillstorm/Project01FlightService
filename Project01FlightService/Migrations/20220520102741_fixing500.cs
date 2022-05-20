@@ -13,7 +13,8 @@ namespace Project01FlightServiceFAW.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     AirportCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -47,7 +48,8 @@ namespace Project01FlightServiceFAW.Migrations
                 name: "Flights",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Departure = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Arrival = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OriginId = table.Column<int>(type: "int", nullable: true),

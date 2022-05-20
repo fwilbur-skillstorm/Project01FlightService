@@ -8,6 +8,7 @@ import {
     FormLabel,
     FormErrorMessage,
     FormHelperText,
+    Input
 } from '@chakra-ui/react'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
@@ -26,6 +27,7 @@ const CreateFlight = (props) => {
     const [destination, setDestination] = React.useState({ value: 1 })
     const [departure, setDeparture] = React.useState(new Date())
     const [arrival, setArrival] = React.useState(new Date())
+    const [capacity, setCapacity] = React.useState(4)
     const { handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     React.useEffect(() => {
@@ -59,7 +61,8 @@ const CreateFlight = (props) => {
             origin: origin,
             departure: departure,
             destination: destination,
-            arrival: arrival
+            arrival: arrival,
+            capacity: capacity
         }
         console.log(Object.entries(theflight))
         axios.post(baseURL + '/Flights', theflight, {
@@ -124,10 +127,13 @@ const CreateFlight = (props) => {
                         <FormHelperText>
                             The airport code should be exactly three capital letters.
                         </FormHelperText>
-
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
+                    </FormControl>
+                    <FormControl isRequired>
+                        <Input name='capacity' value={capacity} onChange={value => setCapacity(value)}>
+                        </Input>
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>

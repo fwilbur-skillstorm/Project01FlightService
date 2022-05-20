@@ -12,7 +12,7 @@ using Project01FlightServiceFAW.Data;
 namespace Project01FlightServiceFAW.Migrations
 {
     [DbContext(typeof(FSContext))]
-    [Migration("20220520102033_fixing500")]
+    [Migration("20220520102741_fixing500")]
     partial class fixing500
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,10 @@ namespace Project01FlightServiceFAW.Migrations
             modelBuilder.Entity("Project01FlightServiceFAW.Models.Flight", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Arrival")
                         .HasColumnType("nvarchar(max)");
@@ -95,7 +98,10 @@ namespace Project01FlightServiceFAW.Migrations
             modelBuilder.Entity("Project01FlightServiceFAW.Models.Location", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AirportCode")
                         .IsRequired()

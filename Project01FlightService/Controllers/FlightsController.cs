@@ -76,8 +76,13 @@ namespace Project01FlightServiceFAW.Controllers
         [HttpPost]
         public async Task<ActionResult<Flight>> PostFlight([FromBody] Flight flight)
         {
-            _context.Flights.Add(flight);
-            await _context.SaveChangesAsync(CancellationToken.None);
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                _context.Database.ExecuteSqlInterpolated($"INSERT INTO Flights (Departure, Arrival, OriginId, DestinationId, Capacity, DateCreated, DateUpdated) VALUES ({flight.Departure}, {flight.Arrival}, {flight.Origin.Id}, {flight.Destination.Id}, {flight.Capacity}, {DateTime.Now.ToString()}, {DateTime.Now.ToString()});");
+
+                await _context.SaveChangesAsync(CancellationToken.None);
+                dbContextTransaction.Commit();
+            }
 
             return CreatedAtAction("GetFlight", new { id = flight.Id }, flight);
         }

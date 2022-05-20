@@ -79,8 +79,14 @@ namespace Project01FlightServiceFAW.Controllers
         [HttpPost]
         public async Task<ActionResult<Itinerary>> PostItinerary([FromBody] Itinerary itinerary)
         {
-            _context.Itineraries.Add(itinerary);
-            await _context.SaveChangesAsync(CancellationToken.None);
+
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                _context.Database.ExecuteSqlInterpolated($"INSERT INTO Itineraries (Confirmation, FlightId, PassengerId, DateCreated, DateUpdated) VALUES ({itinerary.Confirmation}, {itinerary.Flight.Id}, {itinerary.Passenger.Id}, {DateTime.Now.ToString()}, {DateTime.Now.ToString()});");
+
+                await _context.SaveChangesAsync(CancellationToken.None);
+                dbContextTransaction.Commit();
+            }
 
             return CreatedAtAction("GetItinerary", new { id = itinerary.Id }, itinerary);
         }
