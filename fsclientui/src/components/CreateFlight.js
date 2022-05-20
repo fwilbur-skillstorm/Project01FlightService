@@ -8,26 +8,28 @@ import {
     FormLabel,
     FormErrorMessage,
     FormHelperText,
-    Select
 } from '@chakra-ui/react'
 import DatePicker from 'react-datepicker'
+import Select from 'react-select'
 import { useNavigate } from 'react-router-dom'
 import MainNavBar from './MainNavBar'
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const baseURL = 'https://localhost:7156/api/Locations'
+const baseURL = 'https://localhost:7156/api'
 
 
 const CreateFlight = (props) => {
     const navigate = useNavigate()
     const [airports, setAirports] = React.useState(null)
+    const [origin, setOrigin] = React.useState({ value: 1 })
+    const [destination, setDestination] = React.useState({ value: 1 })
     const [departure, setDeparture] = React.useState(new Date())
     const [arrival, setArrival] = React.useState(new Date())
     const { handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     React.useEffect(() => {
-        axios.get(baseURL)
+        axios.get(baseURL + '/Locations')
             .then((response) => {
                 setAirports(response.data)
             }).catch((e) => {
@@ -36,8 +38,47 @@ const CreateFlight = (props) => {
             })
     }, [])
 
+    const handleOriginChange = (data) => {
+        airports.forEach(airport => {
+            if (data.id === airport.id) {
+                setOrigin(data)
+            }
+        })
+    }
+
+    const handleDestinationChange = (data) => {
+        airports.forEach(airport => {
+            if (data.id === airport.id) {
+                setDestination(data)
+            }
+        })
+    }
+
     const onSubmit = data => {
-        console.log(data.toString())
+        const theflight = {
+            origin: origin,
+            departure: departure,
+            destination: destination,
+            arrival: arrival
+        }
+        console.log(Object.entries(theflight))
+        axios.post(baseURL + '/Flights', theflight, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log('Could not POST new itinerary: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
         //        navigate('/flights/view')
     }
 
@@ -55,13 +96,13 @@ const CreateFlight = (props) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='origin'>Airport Location</FormLabel>
-                        <Select>
-                            {airports.map((airport) => (
-                                <React.Fragment key={airport.id}>
-                                    <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
-                                </React.Fragment>
-                            ))}
-                        </Select>
+                        <Select
+                            options={airports}
+                            name='origin'
+                            value={origin}
+                            label={origin.label}
+                            onChange={handleOriginChange}
+                        />
                         <FormHelperText>
                             The airport location can and should include country.
                         </FormHelperText>
@@ -69,20 +110,17 @@ const CreateFlight = (props) => {
                     <FormControl isRequired>
                         <FormLabel htmlFor='departure'>Departure Time</FormLabel>
                         <DatePicker className='border' showTimeSelect timeIntervals={5} selected={departure} onChange={date => setDeparture(date)} />
-                        <span>Chosen time: {arrival.toLocaleTimeString()}</span>
+                        <span>Chosen time: {departure.toLocaleTimeString()}</span>
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel htmlFor='destination'>Destination</FormLabel>
                         <Select
-                            type='select'
-                            search='true'
-                        >
-                            {airports.map((airport) => (
-                                <React.Fragment key={airport.id}>
-                                    <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
-                                </React.Fragment>
-                            ))}
-                        </Select>
+                            options={airports}
+                            name='destination'
+                            value={destination}
+                            label={destination.label}
+                            onChange={handleDestinationChange}
+                        />
                         <FormHelperText>
                             The airport code should be exactly three capital letters.
                         </FormHelperText>
@@ -91,7 +129,7 @@ const CreateFlight = (props) => {
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
-                    <FormControl isrequired>
+                    <FormControl isRequired>
                         <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>
                         <DatePicker className='border' showTimeSelect timeIntervals={5} selected={arrival} onChange={date => setArrival(date)} />
                         <span>Chosen time: {arrival.toLocaleTimeString()}</span>

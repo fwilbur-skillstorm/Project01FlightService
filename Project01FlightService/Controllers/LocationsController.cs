@@ -71,10 +71,10 @@ namespace Project01FlightServiceFAW.Controllers
         // POST: api/Locations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation(string name, string code)
+        public async Task<ActionResult<Location>> PostLocation([FromBody] Location location)
         {
-            Location location = new Location { AirportName = name, AirportCode = code };
-            _context.Locations.Add(location);
+            Location newLocation = location;
+            _context.Locations.Add(newLocation);
             await _context.SaveChangesAsync(CancellationToken.None);
 
             return CreatedAtAction("GetLocation", new { id = location.Id }, location);
@@ -82,7 +82,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // DELETE: api/Locations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLocation(int id)
+        public async Task<IActionResult> DeleteLocation([FromBody] int id)
         {
             var location = await _context.Locations.FindAsync(id);
             if (location == null)

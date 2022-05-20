@@ -77,7 +77,7 @@ namespace Project01FlightServiceFAW.Controllers
         // POST: api/Itineraries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Itinerary>> PostItinerary(Itinerary itinerary)
+        public async Task<ActionResult<Itinerary>> PostItinerary([FromBody] Itinerary itinerary)
         {
             _context.Itineraries.Add(itinerary);
             await _context.SaveChangesAsync(CancellationToken.None);

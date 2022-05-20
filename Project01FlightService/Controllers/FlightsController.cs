@@ -74,13 +74,8 @@ namespace Project01FlightServiceFAW.Controllers
         // POST: api/Flights
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Flight>> PostFlight(int originId, int destinationId)
+        public async Task<ActionResult<Flight>> PostFlight([FromBody] Flight flight)
         {
-            Location? origin = await _context.Locations.FindAsync(originId);
-            Location? destination = await _context.Locations.FindAsync(destinationId);
-
-            Flight flight = new Flight { Origin = origin, Destination = destination };
-
             _context.Flights.Add(flight);
             await _context.SaveChangesAsync(CancellationToken.None);
 

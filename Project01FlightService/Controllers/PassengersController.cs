@@ -71,10 +71,8 @@ namespace Project01FlightServiceFAW.Controllers
         // POST: api/Passengers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Passenger>> PostPassenger(string firstName, string lastName, string email, string job, string dobstring)
+        public async Task<ActionResult<Passenger>> PostPassenger([FromBody] Passenger passenger)
         {
-
-            Passenger passenger = new Passenger { FirstName = firstName, LastName = lastName, Email = email, Job = job, DOB = new DateTime()};
             _context.Passengers.Add(passenger);
             await _context.SaveChangesAsync(CancellationToken.None);
 

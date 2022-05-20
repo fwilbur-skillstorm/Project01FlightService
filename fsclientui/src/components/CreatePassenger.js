@@ -16,7 +16,7 @@ import MainNavBar from "./MainNavBar"
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const baseURL = 'https://localhost:7156/api/Passengers'
+const baseURL = 'https://localhost:7156/api'
 
 
 const CreatePassenger = (props) => {
@@ -25,21 +25,32 @@ const CreatePassenger = (props) => {
 
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
-    // React.useEffect(() => {
-    //     axios.get(baseURL)
-    //         .then((response) => {
-    //             // setAirports(response.data)
-    //         }).catch((e) => {
-    //             let x = {}
-    //             x.blah = 'hello'
-    //             x.bleh = 'world'
-    //             // setAirports(x)
-    //         })
-    // }, [])
-
     const onSubmit = data => {
         console.log(data.toString())
         console.log(dobVal.toString())
+        axios.post(baseURL + '/Passengers', {
+            firstName: data.firstname,
+            lastName: data.lastname,
+            email: data.email,
+            job: data.career,
+            dob: dobVal
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log('Could not POST new itinerary: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
         //        navigate('/passengers/view')
     }
 

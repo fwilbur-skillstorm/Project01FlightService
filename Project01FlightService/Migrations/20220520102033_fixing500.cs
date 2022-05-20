@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project01FlightServiceFAW.Migrations
 {
-    public partial class newtry : Migration
+    public partial class fixing500 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,7 @@ namespace Project01FlightServiceFAW.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     AirportCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -34,7 +33,7 @@ namespace Project01FlightServiceFAW.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DOB = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Job = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -48,11 +47,9 @@ namespace Project01FlightServiceFAW.Migrations
                 name: "Flights",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FlightNumber = table.Column<int>(type: "int", nullable: false),
-                    Departure = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Arrival = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Departure = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Arrival = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OriginId = table.Column<int>(type: "int", nullable: true),
                     DestinationId = table.Column<int>(type: "int", nullable: true),
                     Capacity = table.Column<int>(type: "int", nullable: false),

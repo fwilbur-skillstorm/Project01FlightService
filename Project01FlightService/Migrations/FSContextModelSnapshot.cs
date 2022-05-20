@@ -25,13 +25,10 @@ namespace Project01FlightServiceFAW.Migrations
             modelBuilder.Entity("Project01FlightServiceFAW.Models.Flight", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime?>("Arrival")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Arrival")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
@@ -42,8 +39,8 @@ namespace Project01FlightServiceFAW.Migrations
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Departure")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Departure")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("DestinationId")
                         .HasColumnType("int");
@@ -96,10 +93,7 @@ namespace Project01FlightServiceFAW.Migrations
             modelBuilder.Entity("Project01FlightServiceFAW.Models.Location", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AirportCode")
                         .IsRequired()
@@ -128,8 +122,9 @@ namespace Project01FlightServiceFAW.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DOB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");

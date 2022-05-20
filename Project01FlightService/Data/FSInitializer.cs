@@ -6,12 +6,12 @@ namespace Project01FlightServiceFAW.Data
     public class FSInitializer
     {
         // sourced from here: https://stackoverflow.com/questions/194863/random-date-in-c-sharp
-        private static DateTime GenerateRandomDateTime()
+        private static string GenerateRandomDateTime()
         {
             Random random = new Random();
             DateTime earliest = new DateTime(1930, 1, 1);
             int range = (DateTime.Today - earliest).Days;
-            return earliest.AddDays(random.Next(range));
+            return earliest.AddDays(random.Next(range)).ToString();
         }
 
 		public static void Initialize(IServiceProvider serviceProvider)

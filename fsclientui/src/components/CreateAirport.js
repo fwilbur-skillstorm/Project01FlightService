@@ -1,3 +1,5 @@
+import React from 'react'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import {
     Box,
@@ -11,6 +13,8 @@ import {
 import { useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 
+const baseURL = 'https://localhost:7156/api'
+
 
 const CreateAirport = (props) => {
     const navigate = useNavigate()
@@ -18,9 +22,32 @@ const CreateAirport = (props) => {
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     const onSubmit = data => {
-        console.log(data.toString())
-        //        navigate('/airports/view')
+        console.log(data.airportlocation)
+        console.log(data.airportcode)
+        axios.post(baseURL + '/Locations', {
+            airportName: data.airportlocation, 
+            airportCode: data.airportcode 
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log('Could not POST new airport: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
+        navigate('/airports/view', { state: { message: 'The new airport, ' + data.airportlocation + ', should be listed now!'}})
     }
+
+
 
     return (
         <>
@@ -45,6 +72,9 @@ const CreateAirport = (props) => {
                                 }
                             )}
                         />
+                        <FormErrorMessage>
+                            {errors.airportlocation}
+                        </FormErrorMessage>
                         <FormHelperText>
                             The airport location can and should include country.
                         </FormHelperText>
@@ -58,19 +88,19 @@ const CreateAirport = (props) => {
                             // value={apCode}
                             // onChange={event => setApCode(event.target.value)}
                             {...register('airportcode',
-                                // {
-                                //     required: true,
+                                {
+                                    required: true,
                                 //     pattern: /a-zA-Z/,
                                 //     minLength: { value: 3, message: 'Minimum length should be 3.'},
                                 //     maxLength: { value: 3, message: 'Maximum length should be 3.'}
-                                // }
+                                }
                             )}
                         />
                         <FormHelperText>
                             The airport code should be exactly three capital letters.
                         </FormHelperText>
                         <FormErrorMessage>
-                            {errors.name && errors.name.message}
+                            {errors.airportcode}
                         </FormErrorMessage>
                     </FormControl>
                     <Button

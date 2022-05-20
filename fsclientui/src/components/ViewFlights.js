@@ -87,10 +87,10 @@ const ViewFlights = (props) => {
                                     <React.Fragment key={item.id}>
                                         <Tr>
                                             <Td>{item.id}</Td>
-                                            <Td>{item.origin.airportCode}</Td>
-                                            <Td>{item.departure}</Td>
-                                            <Td>{item.destination.airportCode}</Td>
-                                            <Td>{item.arrival}</Td>
+                                            <Td>{item.origin ? item.origin.airportCode : ''}</Td>
+                                            <Td>{item.departure ? item.departure : ''}</Td>
+                                            <Td>{item.destination ? item.destination.airportCode : ''}</Td>
+                                            <Td>{item.arrival ? item.arrival : ''}</Td>
                                             <Td>0</Td>
                                             <Td>{item.capacity}</Td>
                                             <Td>{IsoConverter.toDateOnly(item.dateCreated)}</Td>

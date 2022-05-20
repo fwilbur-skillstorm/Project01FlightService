@@ -73,6 +73,27 @@ const CreateItinerary = (props) => {
     const onSubmit = data => {
         console.log(Object.entries(selectedPassenger).toString())
         console.log(Object.entries(selectedFlight).toString())
+        axios.post(baseURL + '/Itineraries', {
+            confirmation: Math.random().toString(36).substring(2).toUpperCase(),
+            flight: selectedFlight,
+            passenger: selectedPassenger
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log('Could not POST new itinerary: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
         //        navigate('/itineraries/view')
     }
 

@@ -94,7 +94,7 @@ const ViewPassengers = (props) => {
                                                     {person.email}
                                                 </a>
                                             </Td>
-                                            <Td>{IsoConverter.toDateOnly(person.dob)}</Td>
+                                            <Td>{new Date(person.dob).toLocaleDateString()}</Td>
                                             <Td>{person.age}</Td>
                                             <Td>{person.job == null ? '(not provided)' : person.job}</Td>
                                             <Td>{IsoConverter.toDateOnly(person.dateCreated)}</Td>

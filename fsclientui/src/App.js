@@ -6,10 +6,7 @@ import {
 } from "react-router-dom";
 import {
   ChakraProvider,
-  Box,
   Image,
-  VStack,
-  Grid,
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
