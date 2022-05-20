@@ -42,7 +42,7 @@ const MainNavBar = (props) => {
 }
 
 function bcConditional(currenturl, targeturl, regex, text) {
-    if(currenturl.toString().search(regex) > 0) {
+    if (currenturl.toString().search(regex) > 0) {
         return <BreadcrumbLink as={Link} to={targeturl} isCurrentPage>{text}</BreadcrumbLink>
     } else {
         return <BreadcrumbLink as={Link} to={targeturl}>{text}</BreadcrumbLink>

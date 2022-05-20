@@ -51,22 +51,22 @@ const CreateItinerary = (props) => {
                 console.log("couldn't get flights: " + e.toString())
             })
     }, [])
-    
+
     const handleFlightChange = (data) => {
         flights.forEach(flight => {
-            if(data.id === flight.id) {
+            if (data.id === flight.id) {
                 setSelectedFlight(data)
                 setOrigin(data.origin.airportCode ? data.origin.airportCode : '')
                 setDestination(data.destination.airportCode ? data.destination.airportCode : '')
                 setDeparture(data.departure ? data.departure : '')
                 setArrival(data.arrival ? data.arrival : '')
-            }    
+            }
         })
     }
 
     const handlePassengerChange = (data) => {
         passengers.forEach(passenger => {
-            if(data.id === passenger.id) {
+            if (data.id === passenger.id) {
                 setSelectedPassenger(data)
             }
         })
@@ -75,10 +75,10 @@ const CreateItinerary = (props) => {
     const onSubmit = data => {
         console.log(Object.entries(selectedPassenger).toString())
         console.log(Object.entries(selectedFlight).toString())
-//        navigate('/itineraries/view')
+        //        navigate('/itineraries/view')
     }
 
-    if(!flights || !passengers) {
+    if (!flights || !passengers) {
         return <>{navigation()}</>
     }
 
@@ -86,60 +86,60 @@ const CreateItinerary = (props) => {
         <>
             {navigation()}
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl isRequired>
-                    <FormLabel htmlFor='passenger'>Passenger</FormLabel>
-                    <Select 
-                        options={passengers}
-                        name='passenger'
-                        value={selectedPassenger}
-                        label={selectedPassenger.label}
-                        onChange={handlePassengerChange}
-                    />
-                <FormHelperText>
-                    You can type in the field to filter the passenger list.
-                </FormHelperText>
-                </FormControl>
-                <FormControl isRequired>
-                <FormLabel htmlFor='flight'>Flight</FormLabel>
-                    <Select
-                        options={flights}
-                        name='flight'
-                        value={selectedFlight}
-                        label={selectedFlight.label}
-                        onChange={handleFlightChange}
-                    />
-                    <FormHelperText>
-                        You can type in the field to filter the flight list.
-                    </FormHelperText>
-                </FormControl>
-                <FormControl>
-                    <FormLabel htmlFor=''>Origin</FormLabel>
-                    <Input className='disabledinput' type='text' value={origin} disabled={true} />
-                </FormControl>
-                <FormControl>
-                    <FormLabel htmlFor=''>Departure</FormLabel>
-                    <Input className='disabledinput' type='text' value={departure} disabled={true} />
-                </FormControl>
-                <FormControl>
-                    <FormLabel htmlFor=''>Destination</FormLabel>
-                    <Input className='disabledinput' type='text' value={destination} disabled={true} />
-                </FormControl>
-                <FormControl>
-                    <FormLabel htmlFor=''>Arrival</FormLabel>
-                    <Input className='disabledinput' type='text' value={arrival} disabled={true} />
-                </FormControl>
-                <Button
-                    colorScheme='teal'
-                    variant='outline'
-                    type='submit'
-                    isLoading={isSubmitting}
-                    width='full'
-                    mt={4}
-                >
-                    Create
-                </Button>
-            </form>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl isRequired>
+                        <FormLabel htmlFor='passenger'>Passenger</FormLabel>
+                        <Select
+                            options={passengers}
+                            name='passenger'
+                            value={selectedPassenger}
+                            label={selectedPassenger.label}
+                            onChange={handlePassengerChange}
+                        />
+                        <FormHelperText>
+                            You can type in the field to filter the passenger list.
+                        </FormHelperText>
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel htmlFor='flight'>Flight</FormLabel>
+                        <Select
+                            options={flights}
+                            name='flight'
+                            value={selectedFlight}
+                            label={selectedFlight.label}
+                            onChange={handleFlightChange}
+                        />
+                        <FormHelperText>
+                            You can type in the field to filter the flight list.
+                        </FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor=''>Origin</FormLabel>
+                        <Input className='disabledinput' type='text' value={origin} disabled={true} />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor=''>Departure</FormLabel>
+                        <Input className='disabledinput' type='text' value={departure} disabled={true} />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor=''>Destination</FormLabel>
+                        <Input className='disabledinput' type='text' value={destination} disabled={true} />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor=''>Arrival</FormLabel>
+                        <Input className='disabledinput' type='text' value={arrival} disabled={true} />
+                    </FormControl>
+                    <Button
+                        colorScheme='teal'
+                        variant='outline'
+                        type='submit'
+                        isLoading={isSubmitting}
+                        width='full'
+                        mt={4}
+                    >
+                        Create
+                    </Button>
+                </form>
             </Box>
         </>
     )

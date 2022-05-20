@@ -4,10 +4,10 @@ import MainNavBar from "./MainNavBar"
 const Home = (props) => {
     return (
         <>
-        {navigation()}
-        <p>
-            This is the home page.
-        </p>
+            {navigation()}
+            <p>
+                This is the home page.
+            </p>
         </>
     )
 }

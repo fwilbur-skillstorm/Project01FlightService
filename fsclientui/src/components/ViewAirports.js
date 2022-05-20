@@ -42,56 +42,56 @@ const ViewAirports = (props) => {
             {navigation()}
             <div>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
-                <TableContainer>
-                    <Table variant='striped' colorScheme='blue'>
-                        <TableCaption>
-                            Airports can be edited by clicking the "Edit" button next to one of the entries.
-                        </TableCaption>
-                        <Thead>
-                            <Tr>
-                                <Th>
-                                    Airport Name
-                                </Th>
-                                <Th>
-                                    Airport Code
-                                </Th>
-                                <Th>
-                                    Edit
-                                </Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {airports.map((airport) => (
-                                <React.Fragment key={airport.id}>
-                                    <Tr>
-                                        <Td>{airport.airportName}</Td>
-                                        <Td>{airport.airportCode}</Td>
-                                        <Td>
-                                            <Link to='/'>
-                                                <Button colorScheme='yellow' variant='solid'>
-                                                    Edit
-                                                </Button>
-                                            </Link>
-                                        </Td>
-                                    </Tr>
-                                </React.Fragment>
-                            ))}
-                        </Tbody>
-                        <Tfoot>
-                            <Tr>
-                                <Th>
-                                    Airport Name
-                                </Th>
-                                <Th>
-                                    Airport Code
-                                </Th>
-                                <Th>
-                                    Edit
-                                </Th>
-                            </Tr>
-                        </Tfoot>
-                    </Table>
-                </TableContainer>
+                    <TableContainer>
+                        <Table variant='striped' colorScheme='blue'>
+                            <TableCaption>
+                                Airports can be edited by clicking the "Edit" button next to one of the entries.
+                            </TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>
+                                        Airport Name
+                                    </Th>
+                                    <Th>
+                                        Airport Code
+                                    </Th>
+                                    <Th>
+                                        Edit
+                                    </Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {airports.map((airport) => (
+                                    <React.Fragment key={airport.id}>
+                                        <Tr>
+                                            <Td>{airport.airportName}</Td>
+                                            <Td>{airport.airportCode}</Td>
+                                            <Td>
+                                                <Link to='/'>
+                                                    <Button colorScheme='yellow' variant='solid'>
+                                                        Edit
+                                                    </Button>
+                                                </Link>
+                                            </Td>
+                                        </Tr>
+                                    </React.Fragment>
+                                ))}
+                            </Tbody>
+                            <Tfoot>
+                                <Tr>
+                                    <Th>
+                                        Airport Name
+                                    </Th>
+                                    <Th>
+                                        Airport Code
+                                    </Th>
+                                    <Th>
+                                        Edit
+                                    </Th>
+                                </Tr>
+                            </Tfoot>
+                        </Table>
+                    </TableContainer>
                 </Box>
             </div>
         </>

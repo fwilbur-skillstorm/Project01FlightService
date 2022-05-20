@@ -40,71 +40,71 @@ const CreateFlight = (props) => {
 
     const onSubmit = data => {
         console.log(data.toString())
-//        navigate('/flights/view')
+        //        navigate('/flights/view')
     }
 
     if (!airports) return (
         navigation()
     )
-    
+
     return (
         <>
-        {navigation()}
-        <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>    
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl isRequired>
-                    <FormLabel htmlFor='origin'>Airport Location</FormLabel>
-                    <Select>
-                        {airports.map((airport) => (
-                            <React.Fragment key={airport.id}>
-                                <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
-                            </React.Fragment>
-                        ))}
-                    </Select>
-                    <FormHelperText>
-                        The airport location can and should include country.
-                    </FormHelperText>
-                </FormControl>
-                <FormControl isRequired>
-                    <FormLabel htmlFor='departure'>Departure Time</FormLabel>
-                    <DatePicker className='border' showTimeSelect timeIntervals={5} selected={departure} onChange={date => setDeparture(date)} />
-                </FormControl>
-                <FormControl isRequired>
-                <FormLabel htmlFor='destination'>Destination</FormLabel>
-                    <Select 
-                        type='select'
-                        search='true'
+            {navigation()}
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl isRequired>
+                        <FormLabel htmlFor='origin'>Airport Location</FormLabel>
+                        <Select>
+                            {airports.map((airport) => (
+                                <React.Fragment key={airport.id}>
+                                    <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
+                                </React.Fragment>
+                            ))}
+                        </Select>
+                        <FormHelperText>
+                            The airport location can and should include country.
+                        </FormHelperText>
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel htmlFor='departure'>Departure Time</FormLabel>
+                        <DatePicker className='border' showTimeSelect timeIntervals={5} selected={departure} onChange={date => setDeparture(date)} />
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel htmlFor='destination'>Destination</FormLabel>
+                        <Select
+                            type='select'
+                            search='true'
+                        >
+                            {airports.map((airport) => (
+                                <React.Fragment key={airport.id}>
+                                    <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
+                                </React.Fragment>
+                            ))}
+                        </Select>
+                        <FormHelperText>
+                            The airport code should be exactly three capital letters.
+                        </FormHelperText>
+
+                        <FormErrorMessage>
+                            {errors.name && errors.name.message}
+                        </FormErrorMessage>
+                    </FormControl>
+                    <FormControl isrequired>
+                        <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>
+                        <DatePicker className='border' showTimeSelect timeIntervals={5} selected={arrival} onChange={date => setArrival(date)} />
+                    </FormControl>
+                    <Button
+                        colorScheme='teal'
+                        variant='outline'
+                        type='submit'
+                        isLoading={isSubmitting}
+                        width='full'
+                        mt={4}
                     >
-                        {airports.map((airport) => (
-                            <React.Fragment key={airport.id}>
-                                <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
-                            </React.Fragment>
-                        ))}
-                    </Select>
-                    <FormHelperText>
-                        The airport code should be exactly three capital letters.
-                    </FormHelperText>
-                    
-                    <FormErrorMessage>
-                        {errors.name && errors.name.message}
-                    </FormErrorMessage>
-                </FormControl>
-                <FormControl isrequired>
-                    <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>
-                    <DatePicker className='border' showTimeSelect timeIntervals={5} selected={arrival} onChange={date => setArrival(date)} />
-                </FormControl>
-                <Button
-                    colorScheme='teal'
-                    variant='outline'
-                    type='submit'
-                    isLoading={isSubmitting}
-                    width='full'
-                    mt={4}
-                >
-                    Create
-                </Button>
-            </form>
-        </Box>
+                        Create
+                    </Button>
+                </form>
+            </Box>
         </>
     )
 }
