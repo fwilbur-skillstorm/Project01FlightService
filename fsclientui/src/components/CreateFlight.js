@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
-import { useNavigate } from 'react-router-dom'
 import MainNavBar from './MainNavBar'
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -21,7 +20,6 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const CreateFlight = (props) => {
-    const navigate = useNavigate()
     const [airports, setAirports] = React.useState(null)
     const [origin, setOrigin] = React.useState({ value: 1 })
     const [destination, setDestination] = React.useState({ value: 1 })
@@ -31,14 +29,18 @@ const CreateFlight = (props) => {
     const { handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     React.useEffect(() => {
+        getDemAirports()
+    }, [])
+
+    const getDemAirports = () => {
         axios.get(baseURL + '/Locations')
             .then((response) => {
                 setAirports(response.data)
             }).catch((e) => {
                 setAirports(null)
                 console.log('Could not set airports: ' + e.toString())
-            })
-    }, [])
+        })
+    }
 
     const handleOriginChange = (data) => {
         airports.forEach(airport => {
@@ -74,6 +76,9 @@ const CreateFlight = (props) => {
                 console.log(response.status)
                 console.log(response.data)
             })
+            .then((response) => {
+                getDemAirports()
+            })
             .catch((e) => {
                 console.log('Could not POST new itinerary: ' + e.toString())
                 if(e.response) {
@@ -82,11 +87,12 @@ const CreateFlight = (props) => {
                     console.log(e)
                 }
             })
-        //        navigate('/flights/view')
     }
 
     if (!airports) return (
-        navigation()
+        <>
+            {navigation()}
+        </>
     )
 
     return (
@@ -95,7 +101,7 @@ const CreateFlight = (props) => {
 
             <hr />
 
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' maxWidth={500}>
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={500}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='origin'>Airport Location</FormLabel>
@@ -132,7 +138,7 @@ const CreateFlight = (props) => {
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl isRequired>
-                        <Input name='capacity' value={capacity} onChange={value => setCapacity(value)}>
+                        <Input name='capacity' value={capacity} onChange={e => setCapacity(e.target.value)}>
                         </Input>
                     </FormControl>
                     <FormControl isRequired>

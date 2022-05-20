@@ -81,7 +81,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // DELETE: api/Passengers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePassenger(int id)
+        public async Task<IActionResult> DeletePassenger([System.Web.Http.FromUri] int id)
         {
             var passenger = await _context.Passengers.FindAsync(id);
             if (passenger == null)

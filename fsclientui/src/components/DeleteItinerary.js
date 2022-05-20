@@ -86,7 +86,7 @@ const DeleteItinerary = (props) => {
                                             <Td>{IsoConverter.toDateOnly(itin.dateCreated)}</Td>
                                             <Td>{itin.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(itin.dateUpdated)}</Td>
                                             <Td>
-                                                <Link to='/'>
+                                                <Link to='/itineraries/view'>
                                                     <Button colorScheme='red' variant='solid'>
                                                         Delete
                                                     </Button>

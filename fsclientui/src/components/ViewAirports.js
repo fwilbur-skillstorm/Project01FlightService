@@ -73,7 +73,7 @@ const ViewAirports = (props) => {
                                             <Td>{airport.airportName}</Td>
                                             <Td>{airport.airportCode}</Td>
                                             <Td>
-                                                <Link to='/'>
+                                                <Link to={`/airports/edit/${airport.id}`}>
                                                     <Button colorScheme='yellow' variant='solid'>
                                                         Edit
                                                     </Button>

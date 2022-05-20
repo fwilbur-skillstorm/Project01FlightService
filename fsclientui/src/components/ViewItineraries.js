@@ -45,6 +45,9 @@ const ViewItineraries = (props) => {
             <hr />
 
             <div>
+                <p>
+                    {props.message}
+                </p>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>
                         <Table variant='striped' colorScheme='blue'>
@@ -88,7 +91,7 @@ const ViewItineraries = (props) => {
                                             <Td>{IsoConverter.toDateOnly(itin.dateCreated)}</Td>
                                             <Td>{itin.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(itin.dateUpdated)}</Td>
                                             <Td>
-                                                <Link to='/'>
+                                                <Link to={`/itineraries/edit/${itin.id}`}>
                                                     <Button colorScheme='yellow' variant='solid'>
                                                         Edit
                                                     </Button>

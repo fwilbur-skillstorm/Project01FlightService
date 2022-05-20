@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Project01FlightServiceFAW.Data;
 using Project01FlightServiceFAW.Models;
+using System.Web.Http;
 
 namespace Project01FlightServiceFAW.Controllers
 {
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
     public class LocationsController : ControllerBase
     {
@@ -17,15 +18,15 @@ namespace Project01FlightServiceFAW.Controllers
         }
 
         // GET: api/Locations
-        [HttpGet]
+        [Microsoft.AspNetCore.Mvc.HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
         {
             return await _context.Locations.ToListAsync();
         }
 
         // GET: api/Locations/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocation(int id)
+        [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
+        public async Task<ActionResult<Location>> GetLocation([System.Web.Http.FromUri] int id)
         {
             var location = await _context.Locations.FindAsync(id);
 
@@ -39,39 +40,24 @@ namespace Project01FlightServiceFAW.Controllers
 
         // PUT: api/Locations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+        [Microsoft.AspNetCore.Mvc.HttpPost("{id}")]
+        public async Task<IActionResult> PostLocationUpdate([Microsoft.AspNetCore.Mvc.FromBody] Location location)
         {
-            if (id != location.Id)
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                return BadRequest();
-            }
+                _context.Database.ExecuteSqlInterpolated($"UPDATE Locations SET AirportName = {location.AirportName}, AirportCode = {location.AirportCode} WHERE Id = {location.Id};");
 
-            _context.Entry(location).State = EntityState.Modified;
-
-            try
-            {
                 await _context.SaveChangesAsync(CancellationToken.None);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LocationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                dbContextTransaction.Commit();
             }
 
-            return NoContent();
+            return NoContent(); 
         }
 
         // POST: api/Locations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation([FromBody] Location location)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public async Task<ActionResult<Location>> PostLocation([Microsoft.AspNetCore.Mvc.FromBody] Location location)
         {
             Location newLocation = location;
             _context.Locations.Add(newLocation);
@@ -81,8 +67,8 @@ namespace Project01FlightServiceFAW.Controllers
         }
 
         // DELETE: api/Locations/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLocation([FromBody] int id)
+        [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLocation([FromUri] int id)
         {
             var location = await _context.Locations.FindAsync(id);
             if (location == null)

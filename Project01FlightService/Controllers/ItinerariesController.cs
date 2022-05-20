@@ -31,7 +31,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // GET: api/Itineraries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Itinerary>> GetItinerary(int id)
+        public async Task<ActionResult<Itinerary>> GetItinerary([System.Web.Http.FromUri] int id)
         {
             var itinerary = await _context.Itineraries.FindAsync(id);
 
@@ -46,30 +46,8 @@ namespace Project01FlightServiceFAW.Controllers
         // PUT: api/Itineraries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItinerary(int id, Itinerary itinerary)
+        public async Task<IActionResult> PostItineraryUpdate([FromBody] Itinerary itinerary)
         {
-            if (id != itinerary.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(itinerary).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync(CancellationToken.None);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItineraryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
             return NoContent();
         }
@@ -80,9 +58,18 @@ namespace Project01FlightServiceFAW.Controllers
         public async Task<ActionResult<Itinerary>> PostItinerary([FromBody] Itinerary itinerary)
         {
 
+
             using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                _context.Database.ExecuteSqlInterpolated($"INSERT INTO Itineraries (Confirmation, FlightId, PassengerId, DateCreated, DateUpdated) VALUES ({itinerary.Confirmation}, {itinerary.Flight.Id}, {itinerary.Passenger.Id}, {DateTime.Now.ToString()}, {DateTime.Now.ToString()});");
+                
+                if (itinerary.Flight != null && itinerary.Passenger != null)
+                {
+                    int currentSeats = _context.Database.ExecuteSqlInterpolated($"SELECT COUNT(Itineraries.Id) AS SeatsTaken FROM Itineraries INNER JOIN Flights ON Itineraries.FlightId = Flights.Id WHERE Itineraries.FlightId = {itinerary.Flight.Id} GROUP BY Itineraries.FlightId;");
+                    if (currentSeats < itinerary.Flight.Capacity)
+                    {
+                        _context.Database.ExecuteSqlInterpolated($"INSERT INTO Itineraries (Confirmation, FlightId, PassengerId, DateCreated, DateUpdated) VALUES ({itinerary.Confirmation}, {itinerary.Flight.Id}, {itinerary.Passenger.Id}, {DateTime.Now.ToString()}, {DateTime.Now.ToString()});");
+                    }
+                }
 
                 await _context.SaveChangesAsync(CancellationToken.None);
                 dbContextTransaction.Commit();
@@ -93,7 +80,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // DELETE: api/Itineraries/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItinerary(int id)
+        public async Task<IActionResult> DeleteItinerary([System.Web.Http.FromUri] int id)
         {
             var itinerary = await _context.Itineraries.FindAsync(id);
             if (itinerary == null)

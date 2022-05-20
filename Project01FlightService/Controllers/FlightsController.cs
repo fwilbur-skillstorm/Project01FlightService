@@ -28,9 +28,13 @@ namespace Project01FlightServiceFAW.Controllers
 
         // GET: api/Flights/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Flight>> GetFlight(int id)
+        public async Task<ActionResult<Flight>> GetFlight([System.Web.Http.FromUri] int id)
         {
-            var flight = await _context.Flights.FindAsync(id);
+            var flight = await _context.Flights
+                                        .Include(f => f.Origin)
+                                        .Include(f => f.Destination)
+                                        .Where(f => f.Id == id)
+                                        .FirstAsync();                      
 
             if (flight == null)
             {
@@ -42,30 +46,15 @@ namespace Project01FlightServiceFAW.Controllers
 
         // PUT: api/Flights/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlight(int id, Flight flight)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> PostFlightUpdate([FromBody] Flight flight)
         {
-            if (id != flight.Id)
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                return BadRequest();
-            }
+                _context.Database.ExecuteSqlInterpolated($"UPDATE Flights SET Departure = {flight.Departure}, Origin = {flight.Origin}, Arrival = {flight.Arrival}, Destination = {flight.Destination}, Capacity = {flight.Capacity} WHERE Id = {flight.Id};");
 
-            _context.Entry(flight).State = EntityState.Modified;
-
-            try
-            {
                 await _context.SaveChangesAsync(CancellationToken.None);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FlightExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                dbContextTransaction.Commit();
             }
 
             return NoContent();
@@ -89,7 +78,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // DELETE: api/Flights/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFlight(int id)
+        public async Task<IActionResult> DeleteFlight([System.Web.Http.FromUri] int id)
         {
             var flight = await _context.Flights.FindAsync(id);
             if (flight == null)

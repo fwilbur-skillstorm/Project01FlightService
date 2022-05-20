@@ -17,13 +17,13 @@ import {
 import MainNavBar from "./MainNavBar"
 import IsoConverter from '../util/IsoConverter'
 
-const baseURL = 'https://localhost:7156/api/Flights'
+const baseURL = 'https://localhost:7156/api'
 
 const DeleteFlight = (props) => {
     const [flights, setFlights] = React.useState(null)
 
     React.useEffect(() => {
-        axios.get(baseURL)
+        axios.get(baseURL + '/Flights')
             .then((response) => {
                 setFlights(response.data)
             }).catch((e) => {
@@ -31,6 +31,23 @@ const DeleteFlight = (props) => {
                 console.log('Could not set flights because: ' + e.toString())
             })
     }, [])
+
+    const beginDeletion = id => {
+        console.log('flight id: ' + id)
+        axios.delete(baseURL + '/Flights/' + id)
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log('Could not DELETE flight: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
+    }
 
     if (!flights) return (
         navigation()
@@ -67,9 +84,6 @@ const DeleteFlight = (props) => {
                                         Arrival Time
                                     </Th>
                                     <Th>
-                                        Current Occupancy
-                                    </Th>
-                                    <Th>
                                         Maximum Capacity
                                     </Th>
                                     <Th>
@@ -92,13 +106,12 @@ const DeleteFlight = (props) => {
                                             <Td>{item.departure}</Td>
                                             <Td>{item.destination.airportCode}</Td>
                                             <Td>{item.arrival}</Td>
-                                            <Td>0</Td>
                                             <Td>{item.capacity}</Td>
                                             <Td>{IsoConverter.toDateOnly(item.dateCreated)}</Td>
                                             <Td>{item.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(item.dateUpdated)}</Td>
                                             <Td>
-                                                <Link to='/'>
-                                                    <Button colorScheme='red' variant='solid'>
+                                                <Link to='/flights/view'>
+                                                    <Button id={item.id} colorScheme='red' variant='solid' onClick={e => beginDeletion(e.target.id)}>
                                                         Delete
                                                     </Button>
                                                 </Link>
@@ -123,9 +136,6 @@ const DeleteFlight = (props) => {
                                     </Th>
                                     <Th>
                                         Arrival Time
-                                    </Th>
-                                    <Th>
-                                        Current Occupancy
                                     </Th>
                                     <Th>
                                         Maximum Capacity

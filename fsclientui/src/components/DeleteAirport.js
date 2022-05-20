@@ -16,25 +16,49 @@ import {
 } from '@chakra-ui/react'
 import MainNavBar from './MainNavBar'
 
-const baseURL = 'https://localhost:7156/api/Locations'
+const baseURL = 'https://localhost:7156/api'
 
 const DeleteAirport = (props) => {
     const [airports, setAirports] = React.useState(null)
 
     React.useEffect(() => {
-        axios.get(baseURL)
+        getDemAirports()
+    }, [])
+    
+    const getDemAirports = () => {
+        axios.get(baseURL + '/Locations')
             .then((response) => {
                 setAirports(response.data)
             }).catch((e) => {
-                let x = {}
-                x.blah = 'hello'
-                x.bleh = 'world'
-                setAirports(x)
+                setAirports(null)
+                console.log('Could not set airports: ' + e.toString())
+        })
+    }
+
+    const beginDeletion = id => {
+        console.log('airport id: ' + id)
+        axios.delete(baseURL + '/Locations/' + id)
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
             })
-    }, [])
+            .then((response) => {
+                getDemAirports()
+            })
+            .catch((e) => {
+                console.log('Could not DELETE airport: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
+    }
 
     if (!airports) return (
-        navigation()
+        <>
+            {navigation()}
+        </>
     )
 
     return (
@@ -70,8 +94,8 @@ const DeleteAirport = (props) => {
                                             <Td>{airport.airportName}</Td>
                                             <Td>{airport.airportCode}</Td>
                                             <Td>
-                                                <Link to='/'>
-                                                    <Button colorScheme='red' variant='solid'>
+                                                <Link to='/airports/view'>
+                                                    <Button id={airport.id} colorScheme='red' variant='solid' onClick={e => beginDeletion(e.target.id)}>
                                                         Delete
                                                     </Button>
                                                 </Link>

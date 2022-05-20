@@ -10,7 +10,6 @@ import {
     Input,
 } from '@chakra-ui/react'
 import Select from 'react-select'
-import { useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 import './DisabledInput.css'
 
@@ -18,7 +17,6 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const CreateItinerary = (props) => {
-    const navigate = useNavigate()
     const [passengers, setPassengers] = React.useState(null)
     const [flights, setFlights] = React.useState(null)
     const [selectedFlight, setSelectedFlight] = React.useState({ value: 1 })
@@ -94,7 +92,6 @@ const CreateItinerary = (props) => {
                     console.log(e)
                 }
             })
-        //        navigate('/itineraries/view')
     }
 
     if (!flights || !passengers) {
@@ -107,7 +104,7 @@ const CreateItinerary = (props) => {
 
             <hr />
 
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' maxWidth={650} m='auto' p={4}>
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={650}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='passenger'>Passenger</FormLabel>

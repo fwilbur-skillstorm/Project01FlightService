@@ -42,6 +42,9 @@ const ViewPassengers = (props) => {
             <hr />
 
             <div>
+                <p>
+                    {props.message}
+                </p>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>
                         <Table variant='striped' colorScheme='blue'>
@@ -100,7 +103,7 @@ const ViewPassengers = (props) => {
                                             <Td>{IsoConverter.toDateOnly(person.dateCreated)}</Td>
                                             <Td>{person.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(person.dateUpdated)}</Td>
                                             <Td>
-                                                <Link to='/'>
+                                                <Link to={`/passengers/edit/${person.id}`}>
                                                     <Button colorScheme='yellow' variant='solid'>
                                                         Edit
                                                     </Button>

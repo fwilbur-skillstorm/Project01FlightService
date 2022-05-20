@@ -42,6 +42,9 @@ const ViewFlights = (props) => {
             <hr />
 
             <div>
+                <p>
+                    {props.message}
+                </p>
                 <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
                     <TableContainer>
                         <Table variant='striped' colorScheme='blue'>
@@ -66,9 +69,6 @@ const ViewFlights = (props) => {
                                         Arrival Time
                                     </Th>
                                     <Th>
-                                        Current Occupancy
-                                    </Th>
-                                    <Th>
                                         Maximum Capacity
                                     </Th>
                                     <Th>
@@ -83,20 +83,19 @@ const ViewFlights = (props) => {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {flights.map((item) => (
-                                    <React.Fragment key={item.id}>
+                                {flights.map((flight) => (
+                                    <React.Fragment key={flight.id}>
                                         <Tr>
-                                            <Td>{item.id}</Td>
-                                            <Td>{item.origin ? item.origin.airportCode : ''}</Td>
-                                            <Td>{item.departure ? item.departure : ''}</Td>
-                                            <Td>{item.destination ? item.destination.airportCode : ''}</Td>
-                                            <Td>{item.arrival ? item.arrival : ''}</Td>
-                                            <Td>0</Td>
-                                            <Td>{item.capacity}</Td>
-                                            <Td>{IsoConverter.toDateOnly(item.dateCreated)}</Td>
-                                            <Td>{item.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(item.dateUpdated)}</Td>
+                                            <Td>{flight.id}</Td>
+                                            <Td>{flight.origin ? flight.origin.airportCode : ''}</Td>
+                                            <Td>{flight.departure ? flight.departure : ''}</Td>
+                                            <Td>{flight.destination ? flight.destination.airportCode : ''}</Td>
+                                            <Td>{flight.arrival ? flight.arrival : ''}</Td>
+                                            <Td>{flight.capacity}</Td>
+                                            <Td>{IsoConverter.toDateOnly(flight.dateCreated)}</Td>
+                                            <Td>{flight.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(flight.dateUpdated)}</Td>
                                             <Td>
-                                                <Link to='/'>
+                                            <Link to={`/flights/edit/${flight.id}`}>
                                                     <Button colorScheme='yellow' variant='solid'>
                                                         Edit
                                                     </Button>
@@ -122,9 +121,6 @@ const ViewFlights = (props) => {
                                     </Th>
                                     <Th>
                                         Arrival Time
-                                    </Th>
-                                    <Th>
-                                        Current Occupancy
                                     </Th>
                                     <Th>
                                         Maximum Capacity

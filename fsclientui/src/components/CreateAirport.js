@@ -10,14 +10,12 @@ import {
     FormHelperText,
     Input
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 
 const baseURL = 'https://localhost:7156/api'
 
 
 const CreateAirport = (props) => {
-    const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
@@ -44,7 +42,6 @@ const CreateAirport = (props) => {
                     console.log(e)
                 }
             })
-        navigate('/airports/view', { state: { message: 'The new airport, ' + data.airportlocation + ', should be listed now!'}})
     }
 
 
@@ -55,7 +52,7 @@ const CreateAirport = (props) => {
 
             <hr />
 
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={600}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='airportlocation'>Airport Location</FormLabel>

@@ -17,13 +17,13 @@ import {
 import MainNavBar from "./MainNavBar"
 import IsoConverter from '../util/IsoConverter'
 
-const baseURL = 'https://localhost:7156/api/Passengers'
+const baseURL = 'https://localhost:7156/api'
 
 const DeletePassenger = (props) => {
     const [passengers, setPassengers] = React.useState(null)
 
     React.useEffect(() => {
-        axios.get(baseURL)
+        axios.get(baseURL + '/Passengers')
             .then((response) => {
                 setPassengers(response.data)
             }).catch((e) => {
@@ -31,6 +31,23 @@ const DeletePassenger = (props) => {
                 console.log('Could not set passengers because: ' + e.toString())
             })
     }, [])
+
+    const beginDeletion = id => {
+        console.log('passenger id: ' + id)
+        axios.delete(baseURL + '/Passengers/' + id)
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log('Could not DELETE airport: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
+    }
 
     if (!passengers) return (
         navigation()
@@ -95,14 +112,14 @@ const DeletePassenger = (props) => {
                                                     {person.email}
                                                 </a>
                                             </Td>
-                                            <Td>{IsoConverter.toDateOnly(person.dob)}</Td>
+                                            <Td>{new Date(person.dob).toLocaleDateString()}</Td>
                                             <Td>{person.age}</Td>
                                             <Td>{person.job == null ? '(not provided)' : person.job}</Td>
                                             <Td>{IsoConverter.toDateOnly(person.dateCreated)}</Td>
                                             <Td>{person.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(person.dateUpdated)}</Td>
                                             <Td>
-                                                <Link to='/'>
-                                                    <Button colorScheme='red' variant='solid'>
+                                                <Link to='/passengers/view'>
+                                                    <Button id={person.id} colorScheme='red' variant='solid' onClick={e => beginDeletion(e.target.id)}>
                                                         Delete
                                                     </Button>
                                                 </Link>

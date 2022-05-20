@@ -11,7 +11,6 @@ import {
     Input
 } from '@chakra-ui/react'
 import DatePicker from 'react-datepicker'
-import { useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -20,14 +19,11 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const CreatePassenger = (props) => {
-    const navigate = useNavigate()
     const [dobVal, setDobVal] = React.useState('')
 
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     const onSubmit = data => {
-        console.log(data.toString())
-        console.log(dobVal.toString())
         axios.post(baseURL + '/Passengers', {
             firstName: data.firstname,
             lastName: data.lastname,
@@ -51,7 +47,6 @@ const CreatePassenger = (props) => {
                     console.log(e)
                 }
             })
-        //        navigate('/passengers/view')
     }
 
     return (
@@ -60,7 +55,7 @@ const CreatePassenger = (props) => {
 
             <hr />
 
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={600}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='firstname'>First Name</FormLabel>

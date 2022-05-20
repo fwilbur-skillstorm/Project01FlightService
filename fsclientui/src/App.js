@@ -27,6 +27,10 @@ import ViewAirports from './components/ViewAirports'
 import ViewFlights from './components/ViewFlights'
 import ViewPassengers from './components/ViewPassengers'
 import ViewItineraries from './components/ViewItineraries'
+import EditAirport from './components/EditAirport'
+import EditFlight from './components/EditFlight'
+import EditItinerary from './components/EditItinerary'
+import EditPassenger from './components/EditPassenger'
 import './App.css'
 
 function App() {
@@ -44,18 +48,22 @@ function App() {
                 <Route index element={<Home />} /> {/** This is not wholly necessary to be honest */}
                 <Route path='/flights' element={<AboutFlights />} />
                 <Route path='/flights/view' element={<ViewFlights />} />
+                <Route path='/flights/edit/:flightId' element={<EditFlight />} /> 
                 <Route path='/flights/create' element={<CreateFlight />} />
                 <Route path='/flights/delete' element={<DeleteFlight />} />
                 <Route path='/airports' element={<AboutAirports />} />
                 <Route path='/airports/view' element={<ViewAirports />} />
+                <Route path='/airports/edit/:airportId' element={<EditAirport />} />
                 <Route path='/airports/create' element={<CreateAirport />} />
                 <Route path='/airports/delete' element={<DeleteAirport />} />
                 <Route path='/passengers' element={<AboutPassengers />} />
                 <Route path='/passengers/view' element={<ViewPassengers />} />
+                <Route path='/passengers/edit/:passengerId' element={<EditPassenger />} />
                 <Route path='/passengers/create' element={<CreatePassenger />} />
                 <Route path='/passengers/delete' element={<DeletePassenger />} />
                 <Route path='/itineraries' element={<AboutItineraries />} />
                 <Route path='/itineraries/view' element={<ViewItineraries />} />
+                <Route path='/itineraries/edit/:itineraryId' element={<EditItinerary />} />
                 <Route path='/itineraries/create' element={<CreateItinerary />} />
                 <Route path='/itineraries/delete' element={<DeleteItinerary />} />
               </Route>
