@@ -19,9 +19,9 @@ const baseURL = 'https://localhost:7156/api'
 const EditAirport = (props) => {
     const params = useParams()
     const airportId = params.airportId
-    const [ airport, setAirport ] = React.useState()
-    const [ airportCode, setAirportCode ] = React.useState()
-    const [ airportName, setAirportName ] = React.useState()
+    const [ airport, setAirport ] = React.useState('')
+    const [ airportCode, setAirportCode ] = React.useState('')
+    const [ airportName, setAirportName ] = React.useState('')
     const { handleSubmit, formState: { isSubmitting }, } = useForm()
 
     React.useEffect(() => {
@@ -35,8 +35,6 @@ const EditAirport = (props) => {
         })
             .then((response) => {
                 setAirport(response.data)
-                setAirportCode(airport.AirportCode)
-                setAirportName(airport.AirportName)
             }).catch((e) => {
                 let x = {}
                 x.blah = 'hello'
@@ -45,12 +43,20 @@ const EditAirport = (props) => {
             })
     }, [])
 
-    const onSubmit = data => {
-        console.log(data.airportlocation)
-        console.log(data.airportcode)
+    const handleNameUpdates = (data) => {
+        setAirportName(data)
+    }
+
+    const handleCodeUpdates = (data) => {
+        setAirportCode(data)
+    }
+
+    const onSubmit = () => {
+        console.log(airportName)
+        console.log(airportCode)
         axios.post(baseURL + '/Locations/' + airportId, {
-            airportName: airportName,
-            airportCode: airportCode
+            AirportName: airportName,
+            AirportCode: airportCode
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -79,17 +85,18 @@ const EditAirport = (props) => {
             <hr />
 
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={600}>
+                <p>Original airport data: {airport.airportCode} — {airport.airportName}</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
-                        <FormLabel htmlFor='airportlocation'>Airport Location</FormLabel>
-                        <Input type='text' name='airportName' value={airportName} onChange={e => setAirportName(e.target.value)}/>
+                        <FormLabel htmlFor='airportName'>Airport Location</FormLabel>
+                        <Input value={airportName} onChange={e => handleNameUpdates(e.target.value)}/>
                         <FormHelperText>
                             The airport location can and should include country.
                         </FormHelperText>
                     </FormControl>
                     <FormControl isRequired>
-                        <FormLabel htmlFor='airportcode'>Airport Code</FormLabel>
-                        <Input type='text' name='airportCode' value={airportCode} onChange={e => setAirportCode(e.target.value)} />
+                        <FormLabel htmlFor='airportCode'>Airport Code</FormLabel>
+                        <Input value={airportCode} onChange={e => handleCodeUpdates(e.target.value)} />
                         <FormHelperText>
                             The airport code should be exactly three capital letters.
                         </FormHelperText>

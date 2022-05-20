@@ -48,6 +48,16 @@ namespace Project01FlightServiceFAW.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PostItineraryUpdate([FromBody] Itinerary itinerary)
         {
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                if (itinerary.Flight != null && itinerary.Passenger != null)
+                {
+                    _context.Database.ExecuteSqlInterpolated($"UPDATE Itineraries SET Confirmation = {itinerary.Confirmation}, FlightId = {itinerary.Flight.Id}, PassengerId = {itinerary.Passenger.Id} WHERE Id = {itinerary.Id};");
+
+                    await _context.SaveChangesAsync(CancellationToken.None);
+                    dbContextTransaction.Commit();
+                }
+            }
 
             return NoContent();
         }

@@ -39,30 +39,15 @@ namespace Project01FlightServiceFAW.Controllers
 
         // PUT: api/Passengers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPassenger(int id, Passenger passenger)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> PostFlightUpdate([FromBody] Passenger passenger)
         {
-            if (id != passenger.Id)
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                return BadRequest();
-            }
+                _context.Database.ExecuteSqlInterpolated($"UPDATE Passengers SET FirstName = {passenger.FirstName}, LastName = {passenger.LastName}, DOB = {passenger.DOB}, Job = {passenger.Job}, Email = {passenger.Email} WHERE Id = {passenger.Id};");
 
-            _context.Entry(passenger).State = EntityState.Modified;
-
-            try
-            {
                 await _context.SaveChangesAsync(CancellationToken.None);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PassengerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                dbContextTransaction.Commit();
             }
 
             return NoContent();
