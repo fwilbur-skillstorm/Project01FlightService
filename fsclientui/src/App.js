@@ -38,6 +38,7 @@ function App() {
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
             <header>
+              <script src='https://cdn.jsdelivr.net/npm/@revolist/revo-dropdown@latest/dist/revo-dropdown/revo-dropdown.js' />
               <h1>Not-Actually-Deathtraps Helicopter Service</h1>
             </header>
             <Routes>

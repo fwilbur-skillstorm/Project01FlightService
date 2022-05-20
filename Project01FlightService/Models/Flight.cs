@@ -12,5 +12,9 @@ namespace Project01FlightServiceFAW.Models
         public int Capacity { get; set; } = 4;
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime? DateUpdated { get; set; } = new DateTime();
+        [NotMapped]
+        public int Value => Id;
+        [NotMapped]
+        public string Label => Origin?.AirportCode + " -> " + Destination?.AirportCode;
     }
 }

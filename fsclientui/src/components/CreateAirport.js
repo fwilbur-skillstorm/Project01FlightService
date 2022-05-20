@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 import {
+    Box,
     Button,
     FormControl,
     FormLabel,
@@ -18,12 +19,13 @@ const CreateAirport = (props) => {
 
     const onSubmit = data => {
         console.log(data.toString())
-        navigate('/airports/view')
+//        navigate('/airports/view')
     }
 
     return (
         <>
-            {navigation()}
+        {navigation()}
+        <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isRequired>
                     <FormLabel htmlFor='airportlocation'>Airport Location</FormLabel>
@@ -79,6 +81,7 @@ const CreateAirport = (props) => {
                     Create
                 </Button>
             </form>
+        </Box>
         </>
     )
 }

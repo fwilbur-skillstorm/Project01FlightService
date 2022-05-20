@@ -68,8 +68,8 @@ const ViewAirports = (props) => {
                                         <Td>{airport.airportCode}</Td>
                                         <Td>
                                             <Link to='/'>
-                                                <Button colorScheme='red' variant='solid'>
-                                                    Delete
+                                                <Button colorScheme='yellow' variant='solid'>
+                                                    Edit
                                                 </Button>
                                             </Link>
                                         </Td>

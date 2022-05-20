@@ -2,88 +2,132 @@ import { useForm } from 'react-hook-form'
 import React from 'react'
 import axios from 'axios'
 import {
+    Box,
     Button,
     FormControl,
     FormLabel,
-    FormErrorMessage,
     FormHelperText,
-    Input
+    Input,
 } from '@chakra-ui/react'
+import Select from 'react-select'
 import { useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
+import './DisabledInput.css'
 
-const baseURL = 'https://localhost:7156/api/Flights'
+const baseURL = 'https://localhost:7156/api'
+
 
 const CreateItinerary = (props) => {
     const navigate = useNavigate()
-    const [airports, setAirports] = React.useState(null)
-    const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
+    const [passengers, setPassengers] = React.useState(null)
+    const [flights, setFlights] = React.useState(null)
+    const [selectedFlight, setSelectedFlight] = React.useState({ value: 1 })
+    const [selectedPassenger, setSelectedPassenger] = React.useState({ value: 1 })
+    const [origin, setOrigin] = React.useState('')
+    const [destination, setDestination] = React.useState('')
+    const [departure, setDeparture] = React.useState('')
+    const [arrival, setArrival] = React.useState('')
+    const { handleSubmit, formState: { isSubmitting }, } = useForm()
 
     React.useEffect(() => {
-        axios.get(baseURL)
+        axios.get(baseURL + '/Passengers')
             .then((response) => {
-                // setAirports(response.data)
+                setPassengers(response.data)
             }).catch((e) => {
-                let x = {}
-                x.blah = 'hello'
-                x.bleh = 'world'
-                // setAirports(x)
+                console.log('Could not set passengers: ' + e.toString())
             })
     }, [])
 
-    const onSubmit = data => {
-        console.log(data.toString())
-        navigate('/passengers/view')
+    React.useEffect(() => {
+        axios.get(baseURL + '/Flights')
+            .then((response) => {
+                setFlights(response.data)
+            })
+            .catch((e) => {
+                let x = {}
+                x.blah = 'hello'
+                x.bleh = 'world'
+                setFlights(x)
+                console.log("couldn't get flights: " + e.toString())
+            })
+    }, [])
+    
+    const handleFlightChange = (data) => {
+        flights.forEach(flight => {
+            if(data.id === flight.id) {
+                setSelectedFlight(data)
+                setOrigin(data.origin.airportCode ? data.origin.airportCode : '')
+                setDestination(data.destination.airportCode ? data.destination.airportCode : '')
+                setDeparture(data.departure ? data.departure : '')
+                setArrival(data.arrival ? data.arrival : '')
+            }    
+        })
     }
 
+    const handlePassengerChange = (data) => {
+        passengers.forEach(passenger => {
+            if(data.id === passenger.id) {
+                setSelectedPassenger(data)
+            }
+        })
+    }
 
+    const onSubmit = data => {
+        console.log(Object.entries(selectedPassenger).toString())
+        console.log(Object.entries(selectedFlight).toString())
+//        navigate('/itineraries/view')
+    }
+
+    if(!flights || !passengers) {
+        return <>{navigation()}</>
+    }
 
     return (
         <>
             {navigation()}
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isRequired>
-                    <FormLabel htmlFor='airportlocation'>Airport Location</FormLabel>
-                    <Input 
-                        // type='text' 
-                        // id='airportlocation'
-                        // name='airportlocation'
-                        // value={apLocation}
-                        // onChange={event => setApLocation(event.target.value)}
-                        {...register('airportlocation', 
-                        {
-                            required: true,
-                            minLength: { value: 3, message: 'Minimum length should be 3.'}
-                        }
-                        )}
+                    <FormLabel htmlFor='passenger'>Passenger</FormLabel>
+                    <Select 
+                        options={passengers}
+                        name='passenger'
+                        value={selectedPassenger}
+                        label={selectedPassenger.label}
+                        onChange={handlePassengerChange}
                     />
-                    <FormHelperText>
-                        The airport location can and should include country.
-                    </FormHelperText>
+                <FormHelperText>
+                    You can type in the field to filter the passenger list.
+                </FormHelperText>
                 </FormControl>
                 <FormControl isRequired>
-                <FormLabel htmlFor='airportcode'>Airport Code</FormLabel>
-                    <Input 
-                        // type='text' 
-                        // id='airportcode'
-                        // name='airportcode'
-                        // value={apCode}
-                        // onChange={event => setApCode(event.target.value)}
-                        {...register('airportcode', 
-                        // {
-                        //     required: true,
-                        //     pattern: /a-zA-Z/,
-                        //     minLength: { value: 3, message: 'Minimum length should be 3.'},
-                        //     maxLength: { value: 3, message: 'Maximum length should be 3.'}
-                        // }
-                        )}
+                <FormLabel htmlFor='flight'>Flight</FormLabel>
+                    <Select
+                        options={flights}
+                        name='flight'
+                        value={selectedFlight}
+                        label={selectedFlight.label}
+                        onChange={handleFlightChange}
                     />
                     <FormHelperText>
-                        The airport code should be exactly three capital letters.
+                        You can type in the field to filter the flight list.
                     </FormHelperText>
-                    <FormErrorMessage>
-                        {errors.name && errors.name.message}
-                    </FormErrorMessage>
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor=''>Origin</FormLabel>
+                    <Input className='disabledinput' type='text' value={origin} disabled={true} />
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor=''>Departure</FormLabel>
+                    <Input className='disabledinput' type='text' value={departure} disabled={true} />
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor=''>Destination</FormLabel>
+                    <Input className='disabledinput' type='text' value={destination} disabled={true} />
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor=''>Arrival</FormLabel>
+                    <Input className='disabledinput' type='text' value={arrival} disabled={true} />
                 </FormControl>
                 <Button
                     colorScheme='teal'
@@ -96,6 +140,7 @@ const CreateItinerary = (props) => {
                     Create
                 </Button>
             </form>
+            </Box>
         </>
     )
 }
@@ -104,13 +149,13 @@ function navigation() {
     return (
         <MainNavBar
             homeText='Go Back Home'
-            option1Url='/passengers/view'
-            option2Url='/passengers/create'
-            option3Url='/passengers/delete'
-            option4Url='/passengers'
-            option1Text='View and Edit Passengers'
-            option2Text='Create a Passenger'
-            option3Text='Delete a Passenger'
+            option1Url='/itineraries/view'
+            option2Url='/itineraries/create'
+            option3Url='/itineraries/delete'
+            option4Url='/itineraries'
+            option1Text='View and Edit Itineraries'
+            option2Text='Create an Itinerary'
+            option3Text='Delete an Itinerary'
             option4Text='How to Use'
         />
     )

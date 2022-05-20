@@ -2,27 +2,29 @@ import { useForm } from 'react-hook-form'
 import React from 'react'
 import axios from 'axios'
 import {
+    Box,
     Button,
     FormControl,
     FormLabel,
     FormErrorMessage,
     FormHelperText,
-    Input
+    Select
 } from '@chakra-ui/react'
-import { AdapterDateFns, DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { TextField } from '@mui/material';
+import DatePicker from 'react-datepicker'
 import { useNavigate } from 'react-router-dom'
-import MainNavBar from "./MainNavBar"
+import MainNavBar from './MainNavBar'
+import './Datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
-const baseURL = 'https://localhost:7156/api/Flights'
+const baseURL = 'https://localhost:7156/api/Locations'
 
 
 const CreateFlight = (props) => {
     const navigate = useNavigate()
     const [airports, setAirports] = React.useState(null)
-    const [departure, setDeparture] = React.useState('')
-    const [arrival, setArrival] = React.useState('')
-    const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
+    const [departure, setDeparture] = React.useState(new Date())
+    const [arrival, setArrival] = React.useState(new Date())
+    const { handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     React.useEffect(() => {
         axios.get(baseURL)
@@ -38,7 +40,7 @@ const CreateFlight = (props) => {
 
     const onSubmit = data => {
         console.log(data.toString())
-        navigate('/flights/view')
+//        navigate('/flights/view')
     }
 
     if (!airports) return (
@@ -47,55 +49,38 @@ const CreateFlight = (props) => {
     
     return (
         <>
-            {navigation()}
+        {navigation()}
+        <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>    
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isRequired>
                     <FormLabel htmlFor='origin'>Airport Location</FormLabel>
-                    <Input 
-                        // type='text' 
-                        // id='airportlocation'
-                        // name='airportlocation'
-                        // value={apLocation}
-                        // onChange={event => setApLocation(event.target.value)}
-                        {...register('airportlocation', 
-                        {
-                            required: true,
-                            minLength: { value: 3, message: 'Minimum length should be 3.'}
-                        }
-                        )}
-                    />
+                    <Select>
+                        {airports.map((airport) => (
+                            <React.Fragment key={airport.id}>
+                                <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
+                            </React.Fragment>
+                        ))}
+                    </Select>
                     <FormHelperText>
                         The airport location can and should include country.
                     </FormHelperText>
                 </FormControl>
                 <FormControl isRequired>
                     <FormLabel htmlFor='departure'>Departure Time</FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="departure"
-                            value={departure}
-                            onChange={(newValue) => { setDeparture(newValue) }}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider>
+                    <DatePicker className='border' showTimeSelect timeIntervals={5} selected={departure} onChange={date => setDeparture(date)} />
                 </FormControl>
                 <FormControl isRequired>
                 <FormLabel htmlFor='destination'>Destination</FormLabel>
-                    <Input 
-                        // type='text' 
-                        // id='airportcode'
-                        // name='airportcode'
-                        // value={apCode}
-                        // onChange={event => setApCode(event.target.value)}
-                        {...register('airportcode', 
-                        // {
-                        //     required: true,
-                        //     pattern: /a-zA-Z/,
-                        //     minLength: { value: 3, message: 'Minimum length should be 3.'},
-                        //     maxLength: { value: 3, message: 'Maximum length should be 3.'}
-                        // }
-                        )}
-                    />
+                    <Select 
+                        type='select'
+                        search='true'
+                    >
+                        {airports.map((airport) => (
+                            <React.Fragment key={airport.id}>
+                                <option value={airport.id}>{airport.airportCode} — {airport.airportName}</option>
+                            </React.Fragment>
+                        ))}
+                    </Select>
                     <FormHelperText>
                         The airport code should be exactly three capital letters.
                     </FormHelperText>
@@ -104,16 +89,9 @@ const CreateFlight = (props) => {
                         {errors.name && errors.name.message}
                     </FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isrequired>
                     <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="arrival"
-                            value={arrival}
-                            onChange={(newValue) => { setArrival(newValue) }}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider>
+                    <DatePicker className='border' showTimeSelect timeIntervals={5} selected={arrival} onChange={date => setArrival(date)} />
                 </FormControl>
                 <Button
                     colorScheme='teal'
@@ -126,6 +104,7 @@ const CreateFlight = (props) => {
                     Create
                 </Button>
             </form>
+        </Box>
         </>
     )
 }
