@@ -83,6 +83,7 @@ const CreateItinerary = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/itineraries/view'
             })
             .catch((e) => {
                 console.log('Could not POST new itinerary: ' + e.toString())
@@ -104,7 +105,7 @@ const CreateItinerary = (props) => {
 
             <hr />
 
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={650}>
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' mb='10' maxWidth={650}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='passenger'>Passenger</FormLabel>

@@ -38,9 +38,10 @@ const DeletePassenger = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/passengers/view'
             })
             .catch((e) => {
-                console.log('Could not DELETE airport: ' + e.toString())
+                console.log('Could not DELETE passenger: ' + e.toString())
                 if(e.response) {
                     console.log(e.response)
                 } else {

@@ -41,9 +41,7 @@ const DeleteAirport = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
-            })
-            .then((response) => {
-                getDemAirports()
+                window.location.href = '/airports/view'
             })
             .catch((e) => {
                 console.log('Could not DELETE airport: ' + e.toString())

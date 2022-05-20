@@ -20,7 +20,6 @@ const baseURL = 'https://localhost:7156/api'
 
 const CreatePassenger = (props) => {
     const [dobVal, setDobVal] = React.useState('')
-
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     const onSubmit = data => {
@@ -38,6 +37,7 @@ const CreatePassenger = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/passengers/view'
             })
             .catch((e) => {
                 console.log('Could not POST new itinerary: ' + e.toString())

@@ -75,9 +75,7 @@ const CreateFlight = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
-            })
-            .then((response) => {
-                getDemAirports()
+                window.location.href = '/flights/view'
             })
             .catch((e) => {
                 console.log('Could not POST new itinerary: ' + e.toString())
@@ -101,7 +99,7 @@ const CreateFlight = (props) => {
 
             <hr />
 
-            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={500}>
+            <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' pb='20' maxWidth={500}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='origin'>Airport Location</FormLabel>
@@ -113,7 +111,7 @@ const CreateFlight = (props) => {
                             onChange={handleOriginChange}
                         />
                         <FormHelperText>
-                            The airport location can and should include country.
+                            You can enter text to filter the dropdown.
                         </FormHelperText>
                     </FormControl>
                     <FormControl isRequired>
@@ -131,15 +129,15 @@ const CreateFlight = (props) => {
                             onChange={handleDestinationChange}
                         />
                         <FormHelperText>
-                            The airport code should be exactly three capital letters.
+                            You can enter text to filter the dropdown.
                         </FormHelperText>
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl isRequired>
-                        <Input name='capacity' value={capacity} onChange={e => setCapacity(e.target.value)}>
-                        </Input>
+                        <FormLabel htmlFor='capacity'>Capacity</FormLabel>
+                        <Input name='capacity' value={capacity} onChange={e => setCapacity(e.target.value)} />
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>

@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import DatePicker from 'react-datepicker'
 import MainNavBar from './MainNavBar'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -20,14 +20,16 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const EditPassenger = (props) => {
+    let navigate = useNavigate()
     const [dobVal, setDobVal] = React.useState('')
-
+    const params = useParams()
+    const passengerId = params.passengerId
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     const onSubmit = data => {
         console.log(data.toString())
         console.log(dobVal.toString())
-        axios.post(baseURL + '/Passengers', {
+        axios.post(baseURL + '/Passengers/' + passengerId, {
             firstName: data.firstname,
             lastName: data.lastname,
             email: data.email,
@@ -50,6 +52,9 @@ const EditPassenger = (props) => {
                     console.log(e)
                 }
             })
+            .finally(() => {
+                navigate('/passengers/view', { replace: true, state: { message: '' } })
+        })
     }
 
     return (

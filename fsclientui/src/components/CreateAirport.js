@@ -16,7 +16,6 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const CreateAirport = (props) => {
-
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
 
     const onSubmit = data => {
@@ -33,6 +32,7 @@ const CreateAirport = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/airports/view'
             })
             .catch((e) => {
                 console.log('Could not POST new airport: ' + e.toString())

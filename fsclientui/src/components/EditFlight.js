@@ -13,7 +13,7 @@ import {
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
 import MainNavBar from './MainNavBar'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -21,6 +21,7 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const EditFlight = (props) => {
+    let navigate = useNavigate()
     const params = useParams()
     const [flight, setFlight] = React.useState(null)
     const [airports, setAirports] = React.useState(null)
@@ -34,7 +35,7 @@ const EditFlight = (props) => {
     React.useEffect(() => {
         getDemAirports()
         getInitialFlight()
-    }, [])
+    })
 
     const getDemAirports = () => {
         axios.get(baseURL + '/Locations')
@@ -52,11 +53,11 @@ const EditFlight = (props) => {
         .then((response) => {
             console.log(response.data)
             setFlight(response.data)
-            setOrigin(flight.origin)
-            setDestination(flight.destination)
-            setDeparture(flight.departure)
-            setArrival(flight.arrival)
-            setCapacity(flight.capacity)
+            // setOrigin(flight.origin)
+            // setDestination(flight.destination)
+            // setDeparture(flight.departure)
+            // setArrival(flight.arrival)
+            // setCapacity(flight.capacity)
         }).catch((e) => {
             setFlight(null)
             console.log('Could not set flight: ' + e.toString())
@@ -108,9 +109,12 @@ const EditFlight = (props) => {
                     console.log(e)
                 }
             })
+            .finally(() => {
+                navigate('/flights/view', { replace: true, state: { message: '' } })
+        })
     }
 
-    if (!airports) return (
+    if (!airports || !flight) return (
         <>
             {navigation()}
         </>
@@ -123,6 +127,14 @@ const EditFlight = (props) => {
             <hr />
 
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={500}>
+                <p>
+                    Original Flight Data for Flight with ID {flight.id}<br />
+                    Origin: {flight.origin.airportCode}<br />
+                    Departure: {flight.departure}<br />
+                    Destination: {flight.destination.airportCode}<br />
+                    Arrival: {flight.arrival}<br />
+                    Capacity: {flight.capacity}
+                </p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='origin'>Airport Location</FormLabel>
@@ -161,8 +173,8 @@ const EditFlight = (props) => {
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl isRequired>
-                        <Input name='capacity' value={capacity} onChange={e => setCapacity(e.target.value)}>
-                        </Input>
+                    <FormLabel htmlFor='capacity'>Capacity</FormLabel>
+                        <Input name='capacity' value={capacity} onChange={e => setCapacity(e.target.value)} />
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel htmlFor='arrival'>Arrival Time</FormLabel>

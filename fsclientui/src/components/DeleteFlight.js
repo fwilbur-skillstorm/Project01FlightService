@@ -38,9 +38,10 @@ const DeleteFlight = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/flights/view'
             })
             .catch((e) => {
-                console.log('Could not DELETE flight: ' + e.toString())
+                console.log('Could not DELETE itinerary: ' + e.toString())
                 if(e.response) {
                     console.log(e.response)
                 } else {
@@ -50,7 +51,7 @@ const DeleteFlight = (props) => {
     }
 
     if (!flights) return (
-        navigation()
+        <>{navigation()}</>
     )
 
     return (

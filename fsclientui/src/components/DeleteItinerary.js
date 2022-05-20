@@ -17,13 +17,13 @@ import {
 import MainNavBar from './MainNavBar'
 import IsoConverter from '../util/IsoConverter'
 
-const baseURL = 'https://localhost:7156/api/Itineraries'
+const baseURL = 'https://localhost:7156/api'
 
 const DeleteItinerary = (props) => {
     const [itins, setItineraries] = React.useState(null)
 
     React.useEffect(() => {
-        axios.get(baseURL)
+        axios.get(baseURL + '/Itineraries')
             .then((response) => {
                 setItineraries(response.data)
             }).catch((e) => {
@@ -31,6 +31,24 @@ const DeleteItinerary = (props) => {
                 console.log('Could not set itineraries because: ' + e.toString())
             })
     }, [])
+
+    const beginDeletion = id => {
+        console.log('itinerary id: ' + id)
+        axios.delete(baseURL + '/Itineraries/' + id)
+            .then((response) => {
+                console.log(response.status)
+                console.log(response.data)
+                window.location.href = '/itineraries/view'
+            })
+            .catch((e) => {
+                console.log('Could not DELETE itinerary: ' + e.toString())
+                if(e.response) {
+                    console.log(e.response)
+                } else {
+                    console.log(e)
+                }
+            })
+    }
 
     if (!itins) return (
         navigation()
@@ -87,7 +105,7 @@ const DeleteItinerary = (props) => {
                                             <Td>{itin.dateUpdated.substring(0, 2) === "00" ? 'No Updates' : IsoConverter.toFullString(itin.dateUpdated)}</Td>
                                             <Td>
                                                 <Link to='/itineraries/view'>
-                                                    <Button colorScheme='red' variant='solid'>
+                                                    <Button id={itin.id} colorScheme='red' variant='solid' onClick={e => beginDeletion(e.target.id)}>
                                                         Delete
                                                     </Button>
                                                 </Link>

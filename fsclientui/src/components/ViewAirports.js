@@ -47,7 +47,7 @@ const ViewAirports = (props) => {
                 <p>
                     {props.message}
                 </p>
-                <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4}>
+                <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={1200}>
                     <TableContainer>
                         <Table variant='striped' colorScheme='blue'>
                             <TableCaption>

@@ -6,17 +6,17 @@ import {
     Button,
     FormControl,
     FormLabel,
-    FormErrorMessage,
     FormHelperText,
     Input
 } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 
 const baseURL = 'https://localhost:7156/api'
 
 
 const EditAirport = (props) => {
+    let navigate = useNavigate()
     const params = useParams()
     const airportId = params.airportId
     const [ airport, setAirport ] = React.useState('')
@@ -41,7 +41,7 @@ const EditAirport = (props) => {
                 x.bleh = 'world'
                 setAirport(x)
             })
-    }, [])
+    }, [airportId])
 
     const handleNameUpdates = (data) => {
         setAirportName(data)
@@ -74,9 +74,16 @@ const EditAirport = (props) => {
                     console.log(e)
                 }
             })
+            .finally(() => {
+                navigate('/airports/view', { replace: true, state: { message: '' } })
+        })
     }
 
-
+    if(!airport) {
+        <>
+            {navigation()}
+        </>
+    }
 
     return (
         <>

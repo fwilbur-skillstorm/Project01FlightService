@@ -18,6 +18,8 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const EditItinerary = (props) => {
+    let params = useParams()
+    const itinId = params.itineraryId
     const [passengers, setPassengers] = React.useState(null)
     const [flights, setFlights] = React.useState(null)
     const [selectedFlight, setSelectedFlight] = React.useState({ value: 1 })
@@ -72,7 +74,8 @@ const EditItinerary = (props) => {
     const onSubmit = data => {
         console.log(Object.entries(selectedPassenger).toString())
         console.log(Object.entries(selectedFlight).toString())
-        axios.post(baseURL + '/Itineraries', {
+        axios.post(baseURL + '/Itineraries/' + itinId, {
+            id: itinId,
             confirmation: Math.random().toString(36).substring(2).toUpperCase(),
             flight: selectedFlight,
             passenger: selectedPassenger
@@ -96,7 +99,11 @@ const EditItinerary = (props) => {
     }
 
     if (!flights || !passengers) {
-        return <>{navigation()}</>
+        return (
+            <>
+                {navigation()}
+            </>
+        )
     }
 
     return (
