@@ -18,7 +18,17 @@ const AboutItineraries = (props) => {
             <hr />
 
             <p>
-                This is the about itineraries page.
+                This is the about Itineraries page!
+            </p>
+            <p>
+                Itineraries contain flight information and passenger information, 
+                and you'll notice, when creating or editing an itinerary, a lot 
+                of the information will update for you automatically.
+            </p>
+            <p>
+                As with all categories (airports, flights, passengers, itineraries), you 
+                can create new entries, delete old ones, update existing ones, and view 
+                all of the existing entries as a giant list.
             </p>
         </>
     )

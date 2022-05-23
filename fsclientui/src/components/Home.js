@@ -5,9 +5,16 @@ const Home = (props) => {
     return (
         <>
             {navigation()}
-            <p>
-                This is the home page.
-            </p>
+            <div>
+                <p>
+                    Welcome to Not-Actually-Deathtraps Helicopter Services, where we manage your flights.
+                </p>
+                <p>
+                    The above navigation bar will update as you traverse the site. Simply click on 
+                    the category you'd like to work with, and click Go Back Home as necessary when 
+                    you need to work with another category.
+                </p>
+            </div>
         </>
     )
 }

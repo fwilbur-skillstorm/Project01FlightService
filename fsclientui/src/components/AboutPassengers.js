@@ -18,7 +18,18 @@ const AboutPassengers = (props) => {
             <hr />
 
             <p>
-                This is the about passengers page.
+                This is the Passengers page!
+            </p>
+            <p>
+                A passenger has a first name, last name, career (possibly none), 
+                and an age, which is derived from their date of birth. Oh, they 
+                also have an email address, which you can click on in the view passenger 
+                section to spin up an email to them.
+            </p>
+            <p>
+                As with all categories (airports, flights, passengers, itineraries), you 
+                can create new entries, delete old ones, update existing ones, and view 
+                all of the existing entries as a giant list.
             </p>
         </>
     )

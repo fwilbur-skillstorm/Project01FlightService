@@ -18,7 +18,16 @@ const AboutFlights = (props) => {
             <hr />
 
             <p>
-                This is the about flights page.
+                Welcome to the Flights page!
+            </p>
+            <p>
+                Flights have an origin an destination, and departure time and 
+                arrival time. The origin and destination borrow from the airports.
+            </p>
+            <p>
+                As with all categories (airports, flights, passengers, itineraries), you 
+                can create new entries, delete old ones, update existing ones, and view 
+                all of the existing entries as a giant list.
             </p>
         </>
     )
