@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import DatePicker from 'react-datepicker'
 import MainNavBar from './MainNavBar'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -20,16 +20,33 @@ const baseURL = 'https://localhost:7156/api'
 
 
 const EditPassenger = (props) => {
-    let navigate = useNavigate()
     const [dobVal, setDobVal] = React.useState('')
     const params = useParams()
+    const [passenger, setPassenger] = React.useState('')
     const passengerId = params.passengerId
     const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm()
+
+    React.useEffect(() => {
+        console.log('uri param: ' + passengerId)
+        axios.get(baseURL + '/Passengers/' + passengerId, {
+            passengerId
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                setPassenger(response.data)
+            }).catch((e) => {
+                console.log(e.toString())
+            })
+    }, [passengerId])
 
     const onSubmit = data => {
         console.log(data.toString())
         console.log(dobVal.toString())
         axios.post(baseURL + '/Passengers/' + passengerId, {
+            id: passengerId,
             firstName: data.firstname,
             lastName: data.lastname,
             email: data.email,
@@ -43,6 +60,7 @@ const EditPassenger = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/passengers/view'
             })
             .catch((e) => {
                 console.log('Could not POST new itinerary: ' + e.toString())
@@ -52,9 +70,6 @@ const EditPassenger = (props) => {
                     console.log(e)
                 }
             })
-            .finally(() => {
-                navigate('/passengers/view', { replace: true, state: { message: '' } })
-        })
     }
 
     return (
@@ -64,6 +79,13 @@ const EditPassenger = (props) => {
             <hr />
 
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={600}>
+                <p>
+                    Original Passenger Data for Passenger with ID {passenger.id}<br />
+                    Name: {passenger.firstName} {passenger.lastName}<br />
+                    Email: {passenger.email}<br />
+                    Career: {passenger.job}<br />
+                    Date of Birth: {new Date(passenger.dob).toLocaleDateString()}
+                </p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='firstname'>First Name</FormLabel>

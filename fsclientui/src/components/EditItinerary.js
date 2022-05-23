@@ -20,6 +20,7 @@ const baseURL = 'https://localhost:7156/api'
 const EditItinerary = (props) => {
     let params = useParams()
     const itinId = params.itineraryId
+    const [itinerary, setItinerary] = React.useState(null)
     const [passengers, setPassengers] = React.useState(null)
     const [flights, setFlights] = React.useState(null)
     const [selectedFlight, setSelectedFlight] = React.useState({ value: 1 })
@@ -29,6 +30,25 @@ const EditItinerary = (props) => {
     const [departure, setDeparture] = React.useState('')
     const [arrival, setArrival] = React.useState('')
     const { handleSubmit, formState: { isSubmitting }, } = useForm()
+
+    React.useEffect(() => {
+        console.log('uri param: ' + itinId)
+        axios.get(baseURL + '/Itineraries/' + itinId, {
+            itinId
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                setItinerary(response.data)
+            }).catch((e) => {
+                let x = {}
+                x.blah = 'hello'
+                x.bleh = 'world'
+                setItinerary(x)
+            })
+    }, [itinId])
 
     React.useEffect(() => {
         axios.get(baseURL + '/Passengers')
@@ -87,6 +107,7 @@ const EditItinerary = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/itineraries/view'
             })
             .catch((e) => {
                 console.log('Could not POST new itinerary: ' + e.toString())
@@ -113,6 +134,13 @@ const EditItinerary = (props) => {
             <hr />
 
             <Box borderWidth='2px' borderRadius='xl' overflow='hidden' p={4} m='auto' mt='10' maxWidth={650}>
+                <p>
+                    Original itinerary information for Itinerary with ID {itinId}<br />
+                    Passenger: {itinerary.passenger.firstName + ' ' + itinerary.passenger.lastName}<br />
+                    Flight: {itinerary.flight.label}<br />
+                    Departure: {itinerary.flight.departure}<br />
+                    Arrival: {itinerary.flight.arrival}
+                </p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired>
                         <FormLabel htmlFor='passenger'>Passenger</FormLabel>

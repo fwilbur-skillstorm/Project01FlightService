@@ -55,8 +55,9 @@ const EditAirport = (props) => {
         console.log(airportName)
         console.log(airportCode)
         axios.post(baseURL + '/Locations/' + airportId, {
-            AirportName: airportName,
-            AirportCode: airportCode
+            id: airportId,
+            airportName: airportName,
+            airportCode: airportCode
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -65,6 +66,7 @@ const EditAirport = (props) => {
             .then((response) => {
                 console.log(response.status)
                 console.log(response.data)
+                window.location.href = '/airports/view'
             })
             .catch((e) => {
                 console.log('Could not POST new airport: ' + e.toString())
@@ -74,9 +76,6 @@ const EditAirport = (props) => {
                     console.log(e)
                 }
             })
-            .finally(() => {
-                navigate('/airports/view', { replace: true, state: { message: '' } })
-        })
     }
 
     if(!airport) {

@@ -33,7 +33,14 @@ namespace Project01FlightServiceFAW.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Itinerary>> GetItinerary([System.Web.Http.FromUri] int id)
         {
-            var itinerary = await _context.Itineraries.FindAsync(id);
+            var itinerary = await _context.Itineraries
+                                 .Include(i => i.Passenger)
+                                 .Include(i => i.Flight)
+                                    .ThenInclude(f => f.Origin)
+                                .Include(i => i.Flight)
+                                    .ThenInclude(f => f.Destination)
+                                 .Where(i => i.Id == id)
+                                 .FirstAsync();
 
             if (itinerary == null)
             {
@@ -45,7 +52,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // PUT: api/Itineraries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> PostItineraryUpdate([FromBody] Itinerary itinerary)
         {
             using (var dbContextTransaction = _context.Database.BeginTransaction())
@@ -78,6 +85,9 @@ namespace Project01FlightServiceFAW.Controllers
                     if (currentSeats < itinerary.Flight.Capacity)
                     {
                         _context.Database.ExecuteSqlInterpolated($"INSERT INTO Itineraries (Confirmation, FlightId, PassengerId, DateCreated, DateUpdated) VALUES ({itinerary.Confirmation}, {itinerary.Flight.Id}, {itinerary.Passenger.Id}, {DateTime.Now.ToString()}, {DateTime.Now.ToString()});");
+                    } else
+                    {
+                        return NoContent();
                     }
                 }
 

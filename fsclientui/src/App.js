@@ -40,7 +40,7 @@ function App() {
       
           <ColorModeSwitcher justifySelf="flex-end" />
             <header>
-              <Image alt='a helicopter' src='helicopter.png' className='helicopterimg' />
+              {/* <Image alt='a helicopter' src='helicopter.png' className='helicopterimg' /> */}
               <h1 className='brandingheader'>Not-Actually-Deathtraps Helicopter Service</h1>
             </header>
             <Routes>
