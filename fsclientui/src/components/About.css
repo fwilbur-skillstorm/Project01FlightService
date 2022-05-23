@@ -1,0 +1,21 @@
+.exposition {
+    margin: auto;
+    margin-top: 30px;
+    width: 25%;
+    overflow: hidden;
+}
+
+.exposition h2 {
+    padding-bottom: 30px;
+    font-size: 2em;
+}
+
+.exposition h3 {
+    padding-bottom: 30px;
+    font-size: 1.5em;
+}
+
+.exposition p {
+    padding-bottom: 20px;
+    text-align: left;
+}

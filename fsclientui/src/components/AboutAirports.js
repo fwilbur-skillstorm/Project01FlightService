@@ -1,4 +1,5 @@
 import MainNavBar from "./MainNavBar"
+import './About.css'
 
 const AboutAirports = (props) => {
     return (
@@ -16,10 +17,10 @@ const AboutAirports = (props) => {
             />
 
             <hr />
-
-            <p>
+            <div className='exposition'>
+            <h2>
                 Welcome to the About Airports page!
-            </p>
+            </h2>
             <p>Airports are defined by a location name and a code. While airport codes 
                 are typically only three characters long (all capital letters), you can 
                 enter really anything you'd like.
@@ -29,6 +30,7 @@ const AboutAirports = (props) => {
                 can create new entries, delete old ones, update existing ones, and view 
                 all of the existing entries as a giant list.
             </p>
+            </div>
         </>
     )
 }

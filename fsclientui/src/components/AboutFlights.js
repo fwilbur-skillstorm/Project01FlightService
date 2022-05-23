@@ -1,4 +1,5 @@
 import MainNavBar from "./MainNavBar"
+import './About.css'
 
 const AboutFlights = (props) => {
     return (
@@ -17,9 +18,10 @@ const AboutFlights = (props) => {
 
             <hr />
 
-            <p>
+            <div className='exposition'>
+            <h2>
                 Welcome to the Flights page!
-            </p>
+            </h2>
             <p>
                 Flights have an origin an destination, and departure time and 
                 arrival time. The origin and destination borrow from the airports.
@@ -29,6 +31,7 @@ const AboutFlights = (props) => {
                 can create new entries, delete old ones, update existing ones, and view 
                 all of the existing entries as a giant list.
             </p>
+            </div>
         </>
     )
 }

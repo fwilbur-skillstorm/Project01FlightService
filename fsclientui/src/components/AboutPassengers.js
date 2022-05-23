@@ -1,4 +1,5 @@
 import MainNavBar from "./MainNavBar"
+import './About.css'
 
 const AboutPassengers = (props) => {
     return (
@@ -17,9 +18,10 @@ const AboutPassengers = (props) => {
 
             <hr />
 
-            <p>
+            <div className='exposition'>
+            <h2>
                 This is the Passengers page!
-            </p>
+            </h2>
             <p>
                 A passenger has a first name, last name, career (possibly none), 
                 and an age, which is derived from their date of birth. Oh, they 
@@ -31,6 +33,7 @@ const AboutPassengers = (props) => {
                 can create new entries, delete old ones, update existing ones, and view 
                 all of the existing entries as a giant list.
             </p>
+            </div>
         </>
     )
 }

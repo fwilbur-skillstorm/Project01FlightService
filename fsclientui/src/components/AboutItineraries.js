@@ -1,4 +1,5 @@
 import MainNavBar from "./MainNavBar"
+import './About.css'
 
 const AboutItineraries = (props) => {
     return (
@@ -17,9 +18,10 @@ const AboutItineraries = (props) => {
 
             <hr />
 
-            <p>
+            <div className='exposition'>
+            <h2>
                 This is the about Itineraries page!
-            </p>
+            </h2>
             <p>
                 Itineraries contain flight information and passenger information, 
                 and you'll notice, when creating or editing an itinerary, a lot 
@@ -30,6 +32,7 @@ const AboutItineraries = (props) => {
                 can create new entries, delete old ones, update existing ones, and view 
                 all of the existing entries as a giant list.
             </p>
+            </div>
         </>
     )
 }

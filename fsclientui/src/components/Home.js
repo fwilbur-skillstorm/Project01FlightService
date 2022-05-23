@@ -1,14 +1,14 @@
 import MainNavBar from "./MainNavBar"
-
+import './About.css'
 
 const Home = (props) => {
     return (
         <>
             {navigation()}
-            <div>
-                <p>
+            <div className='exposition'>
+                <h3>
                     Welcome to Not-Actually-Deathtraps Helicopter Services, where we manage your flights.
-                </p>
+                </h3>
                 <p>
                     The above navigation bar will update as you traverse the site. Simply click on 
                     the category you'd like to work with, and click Go Back Home as necessary when 

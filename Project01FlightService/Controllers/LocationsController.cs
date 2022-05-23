@@ -68,7 +68,7 @@ namespace Project01FlightServiceFAW.Controllers
 
         // DELETE: api/Locations/5
         [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLocation([FromUri] int id)
+        public async Task<IActionResult> DeleteLocation([System.Web.Http.FromUri] int id)
         {
             var location = await _context.Locations.FindAsync(id);
             if (location == null)

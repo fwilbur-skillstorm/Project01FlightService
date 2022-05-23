@@ -9,14 +9,13 @@ import {
     FormHelperText,
     Input
 } from '@chakra-ui/react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import MainNavBar from "./MainNavBar"
 
 const baseURL = 'https://localhost:7156/api'
 
 
 const EditAirport = (props) => {
-    let navigate = useNavigate()
     const params = useParams()
     const airportId = params.airportId
     const [ airport, setAirport ] = React.useState('')
